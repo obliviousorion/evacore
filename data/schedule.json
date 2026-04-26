@@ -1,0 +1,148 @@
+{
+  "events": [
+    {
+      "id": "e1",
+      "date": "2026-04-15",
+      "type": "Quiz",
+      "course": "Mup",
+      "subjectId": "mup",
+      "details": "8255, Interrupts (Lec 28-30)",
+      "time": ""
+    },
+    {
+      "id": "e2",
+      "date": "2026-04-15",
+      "type": "Tutorial Test",
+      "course": "AMP",
+      "subjectId": "amp",
+      "details": "",
+      "time": ""
+    },
+    {
+      "id": "e3",
+      "date": "2026-04-17",
+      "type": "Tutorial Test",
+      "course": "SaS",
+      "subjectId": "sas",
+      "details": "Topic: DTFT",
+      "time": ""
+    },
+    {
+      "id": "e4",
+      "date": "2026-04-17",
+      "type": "Assignment",
+      "course": "ConSys",
+      "subjectId": "consys",
+      "details": "Final Submission",
+      "time": ""
+    },
+    {
+      "id": "e5",
+      "date": "2026-04-18",
+      "type": "Design Test",
+      "course": "Mup",
+      "subjectId": "mup",
+      "details": "4:00 PM - 8:00 PM (2 hrs)",
+      "time": "16:00"
+    },
+    {
+      "id": "e6",
+      "date": "2026-04-22",
+      "type": "Quiz",
+      "course": "Mup",
+      "subjectId": "mup",
+      "details": "",
+      "time": ""
+    },
+    {
+      "id": "e7",
+      "date": "2026-04-23",
+      "type": "Tutorial Test",
+      "course": "SSP",
+      "subjectId": "ssp",
+      "details": "Semiconductor Devices and Superconductivity",
+      "time": ""
+    },
+    {
+      "id": "e8",
+      "date": "2026-04-26",
+      "type": "Lab Test",
+      "course": "Mup",
+      "subjectId": "mup",
+      "details": "10:00 AM - 5:00 PM",
+      "time": "10:00"
+    },
+    {
+      "id": "e9",
+      "date": "2026-04-29",
+      "type": "Assignment",
+      "course": "SSP",
+      "subjectId": "ssp",
+      "details": "",
+      "time": ""
+    },
+    {
+      "id": "e10",
+      "date": "2026-05-02",
+      "type": "Comprehensive Exam",
+      "course": "SaS",
+      "subjectId": "sas",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e11",
+      "date": "2026-05-04",
+      "type": "Comprehensive Exam",
+      "course": "AMP",
+      "subjectId": "amp",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e12",
+      "date": "2026-05-06",
+      "type": "Comprehensive Exam",
+      "course": "ConSys",
+      "subjectId": "consys",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e13",
+      "date": "2026-05-08",
+      "type": "Comprehensive Exam",
+      "course": "NPP",
+      "subjectId": "npp",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e14",
+      "date": "2026-05-11",
+      "type": "Comprehensive Exam",
+      "course": "MuE",
+      "subjectId": "mue",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e15",
+      "date": "2026-05-14",
+      "type": "Comprehensive Exam",
+      "course": "MuP",
+      "subjectId": "mup",
+      "details": "Comprehensive Examination",
+      "time": "09:00"
+    },
+    {
+      "id": "e16",
+      "date": "2026-05-16",
+      "type": "Comprehensive Exam",
+      "course": "SSP",
+      "subjectId": "ssp",
+      "details": "Comprehensive Examination",
+      "time": "14:00"
+    }
+  ]
+}

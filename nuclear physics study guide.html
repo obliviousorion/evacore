@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHY F343 — Nuclear &amp; Particle Physics Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f11;
+  --bg2: #16171b;
+  --bg3: #1e2025;
+  --bg4: #262830;
+  --text: #e0ddd5;
+  --text2: #9e9b93;
+  --text3: #6b6860;
+  --accent-purple: #a78bfa;
+  --accent-teal: #5eead4;
+  --accent-coral: #fb923c;
+  --accent-pink: #f472b6;
+  --accent-blue: #60a5fa;
+  --accent-green: #86efac;
+  --accent-red: #f87171;
+  --purple-bg: #a78bfa15;
+  --teal-bg: #5eead415;
+  --coral-bg: #fb923c15;
+  --border: #ffffff0d;
+  --border2: #ffffff1a;
+  --font-display: 'Source Serif 4', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--accent-purple); color: var(--bg); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+/* HEADER */
+header {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+header .overline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  margin-bottom: .75rem;
+}
+header h1 {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: .5rem;
+}
+header .subtitle {
+  font-size: 1rem;
+  color: var(--text2);
+  max-width: 640px;
+}
+.meta-row {
+  display: flex; gap: 2rem; margin-top: 1.25rem; flex-wrap: wrap;
+}
+.meta-item {
+  font-size: 12px; color: var(--text3);
+  font-family: var(--font-mono);
+}
+.meta-item span { color: var(--text2); }
+
+/* SECTION */
+section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: .5rem;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: .75rem;
+  margin-top: 2rem;
+}
+
+p { color: var(--text2); margin-bottom: 1rem; max-width: 720px; }
+p.narrow { max-width: 600px; }
+
+/* PROBLEM CARDS */
+.problem-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: border-color .2s;
+}
+.problem-card:hover { border-color: var(--border2); }
+.problem-card.p1 { border-left: 3px solid var(--accent-purple); }
+.problem-card.p2 { border-left: 3px solid var(--accent-teal); }
+.problem-card.p3 { border-left: 3px solid var(--accent-coral); }
+
+.pc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+.pc-badge {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; flex-shrink: 0;
+}
+.p1 .pc-badge { background: var(--purple-bg); color: var(--accent-purple); }
+.p2 .pc-badge { background: var(--teal-bg); color: var(--accent-teal); }
+.p3 .pc-badge { background: var(--coral-bg); color: var(--accent-coral); }
+.pc-title { font-weight: 600; font-size: 1rem; }
+.pc-sub { font-size: 13px; color: var(--text3); margin-top: 2px; }
+.module-tag {
+  display: inline-block; font-size: 11px; font-family: var(--font-mono);
+  padding: 2px 8px; border-radius: 4px; margin-right: 6px; margin-bottom: .6rem;
+  background: var(--bg4); color: var(--accent-blue);
+}
+
+.book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+@media(max-width:640px){ .book-grid { grid-template-columns: 1fr; } }
+
+.book-box {
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.book-label {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 2px 10px; border-radius: 12px; margin-bottom: .6rem;
+}
+.book-label.t2 { background: #60a5fa22; color: var(--accent-blue); }
+.book-label.r4 { background: #5eead422; color: var(--accent-teal); }
+
+.ch-item {
+  font-size: 13px; padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 6px; color: var(--text2);
+}
+.ch-item:last-child { border-bottom: none; }
+.ch-num { color: var(--text3); flex-shrink: 0; min-width: 36px; font-family: var(--font-mono); font-size: 12px; }
+
+.key-box {
+  background: var(--bg3); border-radius: 8px; padding: 1rem; margin-top: 1rem;
+  font-size: 13px; color: var(--text2); line-height: 1.6;
+}
+.key-box strong { color: var(--text); font-weight: 600; display: block; margin-bottom: .3rem; }
+
+/* STUDY PLAN */
+.day-row { display: flex; gap: 0; margin-bottom: .5rem; }
+.day-label {
+  width: 56px; flex-shrink: 0; padding-top: .65rem;
+  font-family: var(--font-mono); font-size: 12px; color: var(--text3); text-align: right; padding-right: .75rem;
+}
+.day-content {
+  flex: 1; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: .75rem 1rem;
+}
+.day-content.d1 { border-left: 3px solid var(--accent-purple); }
+.day-content.d2 { border-left: 3px solid var(--accent-teal); }
+.day-content.d3 { border-left: 3px solid var(--accent-coral); }
+.day-content.dr { border-left: 3px solid var(--text3); }
+.day-title { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: .2rem; }
+.day-sub { font-size: 13px; color: var(--text2); }
+.day-ref { float: right; font-size: 11px; font-family: var(--font-mono); color: var(--text3); }
+
+/* CG REFERENCE */
+.cg-table {
+  width: 100%; border-collapse: collapse; margin: 1rem 0;
+  font-size: 13px;
+}
+.cg-table th {
+  text-align: left; font-weight: 500; font-size: 12px;
+  color: var(--text3); padding: .5rem .75rem;
+  border-bottom: 1px solid var(--border2);
+  font-family: var(--font-mono);
+}
+.cg-table td {
+  padding: .5rem .75rem; border-bottom: 1px solid var(--border);
+  color: var(--text2); vertical-align: top;
+}
+.cg-table .state { color: var(--text); font-family: var(--font-mono); font-size: 12px; }
+
+/* RESOURCES */
+.resource-group { margin-top: 1.5rem; }
+.resource-group h4 {
+  font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: .75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.resource-group h4 .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+
+.resource-card {
+  display: flex; gap: 12px; padding: .75rem; margin-bottom: .5rem;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; transition: border-color .2s;
+  text-decoration: none; color: inherit;
+}
+.resource-card:hover { border-color: var(--border2); }
+.rc-icon {
+  width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.rc-icon.yt { background: #f8717122; color: var(--accent-red); }
+.rc-icon.pdf { background: #60a5fa22; color: var(--accent-blue); }
+.rc-icon.web { background: #86efac22; color: var(--accent-green); }
+.rc-icon.wiki { background: #ffffff11; color: var(--text2); }
+.rc-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.rc-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* LEGEND */
+.legend { display: flex; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text3); }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* FOOTER */
+footer {
+  padding: 2rem 0; text-align: center;
+  font-size: 12px; color: var(--text3);
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ==================== HEADER ==================== -->
+<header>
+  <div class="overline">BITS Pilani · Second Semester 2025-26</div>
+  <h1>Nuclear &amp; Particle Physics</h1>
+  <div class="subtitle">PHY F343 — Comprehensive study guide for Problem Sheet 3 and upcoming quiz. Covers the Dirac equation, isospin symmetry, and pion-nucleon scattering.</div>
+  <div class="meta-row">
+    <div class="meta-item">Instructor <span>Aritra Banerjee</span></div>
+    <div class="meta-item">Texts <span>T2 Griffiths · R4 Halzen &amp; Martin</span></div>
+    <div class="meta-item">Modules <span>9–13 (L28–L40)</span></div>
+  </div>
+</header>
+
+<!-- ==================== TOPIC MAP ==================== -->
+<section>
+  <div class="section-tag">01 — Topic Map</div>
+  <h2>Problems → Textbook Mapping</h2>
+  <p>Each problem on Sheet 3 is mapped to exact textbook sections from Griffiths (T2) and Halzen &amp; Martin (R4), along with the corresponding course modules.</p>
+
+  <!-- Problem 1 -->
+  <div class="problem-card p1">
+    <div class="pc-header">
+      <div class="pc-badge">P1</div>
+      <div>
+        <div class="pc-title">Dirac Equation — Representations &amp; Unitary Transformations</div>
+        <div class="pc-sub">Dirac algebra · Dirac-Pauli → Weyl/chiral representation · covariance</div>
+      </div>
+    </div>
+    <div>
+      <span class="module-tag">Module 10 · L31–L35</span>
+    </div>
+    <p class="narrow" style="font-size:13px">
+      Verify that U is unitary (UU† = I), compute α′ and β′ in the Weyl/chiral representation, and show the Dirac equation is form-invariant under the transformation Ψ′ = UΨ.
+    </p>
+    <div class="book-grid">
+      <div class="book-box">
+        <span class="book-label t2">T2 — Griffiths</span>
+        <div class="ch-item"><span class="ch-num">§7.1</span>The Dirac equation (p.213)</div>
+        <div class="ch-item"><span class="ch-num">§7.2</span>Solutions to the Dirac equation (p.216)</div>
+        <div class="ch-item"><span class="ch-num">§7.3</span>Bilinear covariants (p.222)</div>
+      </div>
+      <div class="book-box">
+        <span class="book-label r4">R4 — Halzen &amp; Martin</span>
+        <div class="ch-item"><span class="ch-num">§5.1</span>Covariant form, γ-matrices (p.102)</div>
+        <div class="ch-item"><span class="ch-num">§5.2</span>Conserved current, adjoint eq. (p.103)</div>
+        <div class="ch-item"><span class="ch-num">§5.3</span>Free-particle spinors (p.104)</div>
+        <div class="ch-item"><span class="ch-num">§5.4</span>Antiparticles (p.107)</div>
+        <div class="ch-item"><span class="ch-num">§5.5</span>Normalization &amp; completeness (p.110)</div>
+      </div>
+    </div>
+    <div class="key-box">
+      <strong>Key concepts to master</strong>
+      In Dirac-Pauli representation: β = diag(I, −I), αᵢ = off-diagonal σᵢ blocks. The unitary matrix U = (1/√2)[[I,I],[I,−I]] mixes the upper and lower two-component spinors. The Weyl/chiral representation makes helicity eigenstates manifest. The physics is unchanged — only the basis differs. Prove UU† = I by direct 2×2 block multiplication.
+    </div>
+  </div>
+
+  <!-- Problem 2 -->
+  <div class="problem-card p2">
+    <div class="pc-header">
+      <div class="pc-badge">P2</div>
+      <div>
+        <div class="pc-title">Isospin for Pions — Clebsch-Gordan Decomposition</div>
+        <div class="pc-sub">I=1 triplet · ladder operators I± · two-pion system decomposition</div>
+      </div>
+    </div>
+    <div>
+      <span class="module-tag">Module 11 · L36–L37</span>
+    </div>
+    <p class="narrow" style="font-size:13px">
+      Apply I₃ and I₊ to |π⁺π⁻⟩. Use orthogonality with the known |2,0⟩ state to project out I=1 and I=0 components. The CG decomposition 1⊗1 → 2⊕1⊕0 is the core technique.
+    </p>
+    <div class="book-grid">
+      <div class="book-box">
+        <span class="book-label t2">T2 — Griffiths</span>
+        <div class="ch-item"><span class="ch-num">§4.1</span>Symmetries, groups, conservation (p.103)</div>
+        <div class="ch-item"><span class="ch-num">§4.3</span>Addition of angular momenta (p.109)</div>
+        <div class="ch-item"><span class="ch-num">§4.4</span>Spin ½ (p.113)</div>
+        <div class="ch-item"><span class="ch-num">§4.5</span>Flavor symmetries (p.116)</div>
+      </div>
+      <div class="book-box">
+        <span class="book-label r4">R4 — Halzen &amp; Martin</span>
+        <div class="ch-item"><span class="ch-num">§2.3</span>The group SU(2) (p.39)</div>
+        <div class="ch-item"><span class="ch-num">§2.4</span>Combining representations (p.40)</div>
+        <div class="ch-item"><span class="ch-num">§2.6</span>SU(2) of isospin (p.41)</div>
+        <div class="ch-item"><span class="ch-num">§2.7</span>Isospin for antiparticles (p.42)</div>
+      </div>
+    </div>
+    <div class="key-box">
+      <strong>Key decomposition: 1 ⊗ 1 = 2 ⊕ 1 ⊕ 0</strong>
+      |2,0⟩ = (1/√6)(|π⁺π⁻⟩ + |π⁻π⁺⟩ + 2|π⁰π⁰⟩) — symmetric<br>
+      |1,0⟩ = (1/√2)(|π⁺π⁻⟩ − |π⁻π⁺⟩) — antisymmetric<br>
+      |0,0⟩ = (1/√3)(|π⁺π⁻⟩ + |π⁻π⁺⟩ − |π⁰π⁰⟩) — symmetric<br><br>
+      Inverting: |π⁺π⁻⟩ = (1/√6)|2,0⟩ + (1/√2)|1,0⟩ + (1/√3)|0,0⟩. Therefore P(I=0) = 1/3.
+    </div>
+  </div>
+
+  <!-- Problem 3 -->
+  <div class="problem-card p3">
+    <div class="pc-header">
+      <div class="pc-badge">P3</div>
+      <div>
+        <div class="pc-title">πN Scattering — Isospin Amplitudes &amp; Cross Sections</div>
+        <div class="pc-sub">1⊗½ CG coefficients · A₁/₂, A₃/₂ amplitudes · Δ(1232) resonance</div>
+      </div>
+    </div>
+    <div>
+      <span class="module-tag">Module 9 · L28–L30</span>
+      <span class="module-tag">Module 11 · L36–L37</span>
+    </div>
+    <p class="narrow" style="font-size:13px">
+      Decompose π⁺p, π⁻p, π⁰n into total isospin eigenstates using 1⊗½ CG coefficients. Express each scattering amplitude in terms of A₃/₂ and A₁/₂. At Δ resonance (I=3/2 only), derive σ ratios 9:1:2.
+    </p>
+    <div class="book-grid">
+      <div class="book-box">
+        <span class="book-label t2">T2 — Griffiths</span>
+        <div class="ch-item"><span class="ch-num">§1.7</span>The eightfold way (p.33)</div>
+        <div class="ch-item"><span class="ch-num">§1.8</span>The quark model (p.37)</div>
+        <div class="ch-item"><span class="ch-num">§4.5</span>Flavor symmetries (p.116)</div>
+        <div class="ch-item"><span class="ch-num">§4.6</span>Parity (p.122)</div>
+      </div>
+      <div class="book-box">
+        <span class="book-label r4">R4 — Halzen &amp; Martin</span>
+        <div class="ch-item"><span class="ch-num">§2.4</span>Combining representations (p.40)</div>
+        <div class="ch-item"><span class="ch-num">§2.6</span>SU(2) of isospin (p.41)</div>
+        <div class="ch-item"><span class="ch-num">§2.9</span>Isospin &amp; strangeness (p.44)</div>
+      </div>
+    </div>
+    <div class="key-box">
+      <strong>CG coefficients for 1 ⊗ ½ = 3/2 ⊕ 1/2</strong>
+      |π⁺p⟩ = |3/2, +3/2⟩ (pure I=3/2)<br>
+      |π⁻p⟩ = √(1/3)|3/2,−1/2⟩ − √(2/3)|1/2,−1/2⟩<br>
+      |π⁰n⟩ = √(2/3)|3/2,−1/2⟩ + √(1/3)|1/2,−1/2⟩<br><br>
+      <strong>At Δ(1232) resonance — only A₃/₂ ≠ 0</strong>
+      σ(π⁺p → π⁺p) ∝ |A₃/₂|² → coefficient 1<br>
+      σ(π⁻p → π⁻p) ∝ (1/3)|A₃/₂|² → coefficient 1/9<br>
+      σ(π⁻p → π⁰n) ∝ (2/9)|A₃/₂|² → coefficient 2/9<br><br>
+      Ratio = <strong style="color:var(--accent-coral)">9 : 1 : 2</strong>. &nbsp; Identity: σ(π⁻p→π⁻p) + σ(π⁻p→π⁰n) = σ(π⁺p)/3 ✓
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STUDY PLAN ==================== -->
+<section>
+  <div class="section-tag">02 — Study Plan</div>
+  <h2>7-Day Preparation Schedule</h2>
+  <p>Assuming ~2 hours per day. Each day focuses on one problem's textbook sections, building up to a full revision day.</p>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-purple)"></div>Dirac equation (P1)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-teal)"></div>Isospin / CG (P2)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent-coral)"></div>πN scattering (P3)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--text3)"></div>Revision</div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 1</div>
+    <div class="day-content d1">
+      <div class="day-ref">R4 §5.1–5.2</div>
+      <div class="day-title">Dirac equation foundations</div>
+      <div class="day-sub">Read Halzen &amp; Martin Ch.5 on the covariant form and γ-matrices. Derive the Clifford algebra relations αᵢαⱼ + αⱼαᵢ = 2δᵢⱼ from the energy-momentum relation. Write out the Dirac-Pauli representation explicitly.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 2</div>
+    <div class="day-content d1">
+      <div class="day-ref">T2 §7.1–7.2</div>
+      <div class="day-title">Dirac representations &amp; Problem 1</div>
+      <div class="day-sub">Study Griffiths §7.1-7.2 (Dirac equation and solutions). Also read R4 §5.3 (free-particle spinors). Work through Problem 1: prove UU†=I, compute α′ and β′, show the Dirac equation is preserved.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 3</div>
+    <div class="day-content d2">
+      <div class="day-ref">T2 §4.1, §4.3</div>
+      <div class="day-title">SU(2) isospin &amp; ladder operators</div>
+      <div class="day-sub">Griffiths §4.1 (symmetries &amp; conservation) and §4.3 (addition of angular momenta). Practice applying I± to |I, I₃⟩. Work out the 1⊗1 decomposition by hand using highest-weight method.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 4</div>
+    <div class="day-content d2">
+      <div class="day-ref">R4 §2.3–2.7</div>
+      <div class="day-title">Isospin for pions &amp; Problem 2</div>
+      <div class="day-sub">R4 §2.4 (combining representations), §2.6-2.7 (SU(2) isospin). Derive the |2,0⟩, |1,0⟩, |0,0⟩ states. Solve Problem 2 in full. Verify P(I=0) = 1/3.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 5</div>
+    <div class="day-content d3">
+      <div class="day-ref">T2 §1.7–1.8, §4.5</div>
+      <div class="day-title">Hadron classification &amp; πN isospin</div>
+      <div class="day-sub">Brief history of particles, eightfold way, quark model (Griffiths Ch.1). Then learn the 1⊗½ CG coefficients. Decompose π⁺p and π⁻p into isospin eigenstates.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 6</div>
+    <div class="day-content d3">
+      <div class="day-ref">R4 §2.4, §2.9</div>
+      <div class="day-title">πN amplitudes &amp; Problem 3</div>
+      <div class="day-sub">Express M(π⁺p), M(π⁻p), M(π⁰n) in terms of A₃/₂ and A₁/₂. Apply Δ(1232) resonance (A₁/₂=0). Derive 9:1:2 ratio. Prove the cross-section identity. Solve Problem 3 completely.</div>
+    </div>
+  </div>
+
+  <div class="day-row"><div class="day-label">Day 7</div>
+    <div class="day-content dr">
+      <div class="day-ref">All sections</div>
+      <div class="day-title">Full revision &amp; mock problems</div>
+      <div class="day-sub">Redo all 3 problems without notes. Re-derive CG decompositions from scratch. Check Dirac algebra proofs. Verify the resonance cross-section ratio. Review class notes for edge cases.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ONLINE RESOURCES ==================== -->
+<section>
+  <div class="section-tag">03 — Online Resources</div>
+  <h2>Lectures, Notes &amp; Videos</h2>
+  <p>Curated resources organized by topic. YouTube lectures, university handouts, and reference material to supplement T2 and R4.</p>
+
+  <!-- DIRAC EQUATION RESOURCES -->
+  <div class="resource-group">
+    <h4><div class="dot" style="background:var(--accent-purple)"></div>Dirac Equation &amp; Spinors</h4>
+
+    <a class="resource-card" href="https://www.youtube.com/playlist?list=PLiFZ5gY7YWjAI_3ykqId3hFnHNfOoPVKI" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Alex Flournoy — Particle Physics Full Playlist (Colorado School of Mines)</div>
+        <div class="rc-sub">YouTube · 28+ lectures · Covers Dirac eq., spinors, Weyl representation, Feynman rules — follows Griffiths closely</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.youtube.com/watch?v=zLtrHbZIfbc" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Flournoy Lecture 11: Solutions to Dirac Eq., Helicity &amp; Weyl Spinors</div>
+        <div class="rc-sub">YouTube · 70 min · Directly relevant to Problem 1 — covers representations and transformations</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.youtube.com/watch?v=OCuaBmAzqek" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Quantum Mechanics 12a — Dirac Equation I (ViaScience)</div>
+        <div class="rc-sub">YouTube · Conceptual introduction to Dirac equation, spin, and antiparticles</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.youtube.com/watch?v=t7OVtGyQCIw" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Dirac Equation: Derivation and Introduction (Faculty of Khan)</div>
+        <div class="rc-sub">YouTube · Short derivation — good for building initial intuition from the ansatz</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.youtube.com/watch?v=QuorB7njwq4" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Building the Dirac Equation (2026)</div>
+        <div class="rc-sub">YouTube · Recent lecture covering the mathematical construction from scratch</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.hep.phy.cam.ac.uk/~thomson/partIIIparticles/handouts/Handout_2_2011.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Mark Thomson — Handout 2: The Dirac Equation and Spin</div>
+        <div class="rc-sub">PDF · Cambridge Part III · Excellent concise treatment of Dirac equation, spinors, and representations</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.phys.ufl.edu/courses/phz7357/fall17/Thomson-DiracEquation.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Thomson Dirac Equation Handout — UFL Course Notes</div>
+        <div class="rc-sub">PDF · Detailed derivations of free-particle spinors, normalization, completeness</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://en.wikipedia.org/wiki/Dirac_equation" target="_blank">
+      <div class="rc-icon wiki">W</div>
+      <div>
+        <div class="rc-title">Wikipedia — Dirac Equation</div>
+        <div class="rc-sub">Reference · Comprehensive article covering all representations, historical context, and derivations</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ISOSPIN / CG RESOURCES -->
+  <div class="resource-group">
+    <h4><div class="dot" style="background:var(--accent-teal)"></div>Isospin, SU(2)/SU(3) &amp; Clebsch-Gordan Coefficients</h4>
+
+    <a class="resource-card" href="https://www.youtube.com/watch?v=JTE05gsZrn4" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Particle Physics Lecture 5: Isospin and Isospin Multiplet (Physics Hub)</div>
+        <div class="rc-sub">YouTube · Concept of isospin, pion triplet, nucleon doublet — good starting point</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.youtube.com/playlist?list=PLq_GOIvE4kr-xVbEuxt8XZN11nkYiNABI" target="_blank">
+      <div class="rc-icon yt">▶</div>
+      <div>
+        <div class="rc-title">Griffiths Elementary Particles — Audio/Video Lecture Series</div>
+        <div class="rc-sub">YouTube Playlist · Covers chapters from Griffiths T2 including symmetries and isospin</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.hep.phy.cam.ac.uk/~thomson/partIIIparticles/handouts/Handout_7_2011.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Mark Thomson — Handout 7: Symmetries and the Quark Model</div>
+        <div class="rc-sub">PDF · Cambridge Part III · Covers isospin, SU(2), SU(3), flavor symmetry, eightfold way</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.physics.utoronto.ca/~krieger/PHY357_Lecture7.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">U Toronto PHY357 — CG Coefficients &amp; Pion-Nucleon Scattering</div>
+        <div class="rc-sub">PDF · Lecture notes with 1⊗½ CG table, worked πN scattering examples — directly relevant to P3</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.asc.ohio-state.edu/gan.1/teaching/winter10/Chapter5.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Ohio State — Isospin and Parity Lecture Notes</div>
+        <div class="rc-sub">PDF · Worked examples of isospin conservation, πN scattering cross-section ratios with data comparison</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="http://hep.physics.wayne.edu/~harr/courses/7060/w03/lecture36.htm" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Wayne State — Isospin Symmetry Lecture Notes</div>
+        <div class="rc-sub">Web · Covers deuteron isospin, pion-nucleon scattering amplitudes, and CG decomposition step by step</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.ks.uiuc.edu/Services/Class/PHYS480/qm_PDF/chp12.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">UIUC — Ch.12: Symmetries in Physics: Isospin and the Eightfold Way</div>
+        <div class="rc-sub">PDF · Full chapter covering isospin for NN and πN scattering with SU(3) extension</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.physics.umd.edu/courses/Phys741/xji/chapter3.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">U Maryland — Flavor Symmetry and Quark Model of Hadrons</div>
+        <div class="rc-sub">PDF · Graduate-level notes on SU(2), SU(3), hadron wavefunctions, Δ resonance, magnetic moments</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://en.wikipedia.org/wiki/Quark_model" target="_blank">
+      <div class="rc-icon wiki">W</div>
+      <div>
+        <div class="rc-title">Wikipedia — Quark Model</div>
+        <div class="rc-sub">Reference · Meson/baryon multiplets, SU(3) flavor, eightfold way, CG decompositions</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- GENERAL / COURSE-WIDE RESOURCES -->
+  <div class="resource-group">
+    <h4><div class="dot" style="background:var(--accent-coral)"></div>General Particle Physics &amp; Course-Wide References</h4>
+
+    <a class="resource-card" href="https://www.hep.phy.cam.ac.uk/~thomson/partIIIparticles/welcome.html" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Mark Thomson — Part III Particle Physics (Cambridge) — All Handouts</div>
+        <div class="rc-sub">Web · Complete set of 14 PDF handouts covering the entire particle physics syllabus</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.hep.phy.cam.ac.uk/~thomson/MPP/ModernParticlePhysics.html" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Modern Particle Physics — Online Resources (Thomson)</div>
+        <div class="rc-sub">Web · Hints/solutions for students, PowerPoint slides, errata for the textbook</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://inside.mines.edu/~aflourno/Particle/423.shtml" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Alex Flournoy — Particle Physics Course Website (Colorado Mines)</div>
+        <div class="rc-sub">Web · Lecture notes PDFs, homework solutions, quizzes, and exams — follows Griffiths</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://arxiv.org/pdf/2005.06355" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Ben Gripaios — From QM to the Standard Model (arXiv)</div>
+        <div class="rc-sub">PDF · Cambridge lecture notes — concise path from Dirac eq. through gauge theories</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://arxiv.org/pdf/0906.1271" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">Anchordoqui &amp; Halzen — Lessons in Particle Physics (arXiv)</div>
+        <div class="rc-sub">PDF · Co-authored by Halzen (R4 author) — covers Dirac eq., symmetries, QED, QCD</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.ippp.dur.ac.uk/~krauss/Lectures/QuarksLeptons/Dirac/Spin_5.html" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Durham IPPP — Quarks &amp; Leptons Lecture: Isospin Conservation Examples</div>
+        <div class="rc-sub">Web · Worked isospin examples including πN scattering with CG tables</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://www.spcmc.ac.in/uploads/1709633963_Part3_Lecture_Notes_Elementary_Particles.pdf" target="_blank">
+      <div class="rc-icon pdf">◱</div>
+      <div>
+        <div class="rc-title">University of Calcutta — Particle Physics Part III Lecture Notes</div>
+        <div class="rc-sub">PDF · Indian university context — covers classification, conservation laws, eightfold way, quark model</div>
+      </div>
+    </a>
+
+    <a class="resource-card" href="https://pdg.lbl.gov/" target="_blank">
+      <div class="rc-icon web">⊕</div>
+      <div>
+        <div class="rc-title">Particle Data Group (PDG)</div>
+        <div class="rc-sub">Web · The authoritative reference for particle masses, quantum numbers, CG tables, and decay modes</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== CG REFERENCE ==================== -->
+<section>
+  <div class="section-tag">04 — Quick Reference</div>
+  <h2>Clebsch-Gordan Tables for Quiz</h2>
+
+  <h3>1 ⊗ 1 = 2 ⊕ 1 ⊕ 0 &nbsp;(two-pion system, Problem 2)</h3>
+  <table class="cg-table">
+    <thead><tr><th>State</th><th>Decomposition</th><th>Symmetry</th></tr></thead>
+    <tbody>
+      <tr><td class="state">|2,0⟩</td><td>(1/√6)(|π⁺π⁻⟩ + |π⁻π⁺⟩ + 2|π⁰π⁰⟩)</td><td>Symmetric</td></tr>
+      <tr><td class="state">|1,0⟩</td><td>(1/√2)(|π⁺π⁻⟩ − |π⁻π⁺⟩)</td><td>Antisymmetric</td></tr>
+      <tr><td class="state">|0,0⟩</td><td>(1/√3)(|π⁺π⁻⟩ + |π⁻π⁺⟩ − |π⁰π⁰⟩)</td><td>Symmetric</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1 ⊗ ½ = 3/2 ⊕ 1/2 &nbsp;(pion-nucleon system, Problem 3)</h3>
+  <table class="cg-table">
+    <thead><tr><th>State</th><th>Decomposition</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="state">|π⁺p⟩</td><td>|3/2, +3/2⟩</td><td>Pure I=3/2</td></tr>
+      <tr><td class="state">|π⁻p⟩</td><td>√(1/3)|3/2,−1/2⟩ − √(2/3)|1/2,−1/2⟩</td><td>Mixed</td></tr>
+      <tr><td class="state">|π⁰n⟩</td><td>√(2/3)|3/2,−1/2⟩ + √(1/3)|1/2,−1/2⟩</td><td>Mixed</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cross-section ratios at Δ(1232) — A₁/₂ = 0</h3>
+  <table class="cg-table">
+    <thead><tr><th>Process</th><th>Amplitude</th><th>σ ∝ |M|²</th></tr></thead>
+    <tbody>
+      <tr><td class="state">π⁺p → π⁺p</td><td>A₃/₂</td><td>|A₃/₂|²</td></tr>
+      <tr><td class="state">π⁻p → π⁻p</td><td>(1/3)A₃/₂</td><td>(1/9)|A₃/₂|²</td></tr>
+      <tr><td class="state">π⁻p → π⁰n</td><td>(√2/3)A₃/₂</td><td>(2/9)|A₃/₂|²</td></tr>
+    </tbody>
+  </table>
+
+  <div class="key-box" style="margin-top:1.5rem">
+    <strong>Summary identity</strong>
+    σ(π⁻p → π⁻p) + σ(π⁻p → π⁰n) = (1/9 + 2/9)|A₃/₂|² = (1/3)|A₃/₂|² = σ(π⁺p → π⁺p) / 3
+  </div>
+</section>
+
+<footer>
+  PHY F343 · BITS Pilani, Pilani Campus · Second Semester 2025-26 · Study Guide generated April 2026
+</footer>
+
+</div>
+</body>
+</html>

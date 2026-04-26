@@ -1,0 +1,138 @@
+.container {
+  margin-bottom: 32px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.range {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.daySlot {
+  min-width: 90px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  scroll-snap-align: start;
+  transition: all var(--duration-normal) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.daySlot:hover {
+  border-color: var(--border-active);
+  background: var(--bg-elevated);
+}
+
+.daySlot.today {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 20px rgba(124, 106, 247, 0.1);
+}
+
+.daySlot.hasEval {
+  border-color: var(--border-active);
+}
+
+.dayName {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.dayNum {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.dayMonth {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.todayBadge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--bg-base);
+  margin-top: 2px;
+}
+
+.evalPill {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  margin-top: 4px;
+}
+
+.evalDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.evalInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.evalType {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.evalCourse {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

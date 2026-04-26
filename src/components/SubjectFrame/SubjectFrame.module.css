@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.crumbLink {
+  color: var(--text-secondary);
+  transition: color var(--duration-fast);
+}
+
+.crumbLink:hover {
+  color: var(--text-primary);
+}
+
+.crumbSep {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.crumbSem {
+  color: var(--text-secondary);
+}
+
+.crumbCurr {
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+}
+
+.openBtn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast);
+}
+
+.openBtn:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-active);
+}
+
+.frameWrapper {
+  flex: 1;
+  width: 100%;
+  background: var(--bg-base);
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}

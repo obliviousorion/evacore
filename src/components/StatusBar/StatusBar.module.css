@@ -1,0 +1,28 @@
+.statusbar {
+  height: var(--statusbar-h);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusOk {
+  color: var(--accent-2);
+}

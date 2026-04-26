@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL // EVAL_DASHBOARD</title>
+    <link rel="icon" type="image/png" href="kitty.png">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(15, 15, 15, 0.9);
+            --accent-color: #00ff41; /* Retro Matrix/Terminal Green */
+            --text-main: #e0e0e0;
+            --text-dim: #666;
+            --border-color: #222;
+            --highlight-bg: rgba(0, 255, 65, 0.05);
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        * { box-sizing: border-box; cursor: crosshair; }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            margin: 0; padding: 40px 20px;
+            display: flex; justify-content: center;
+        }
+
+        #container {
+            width: 100%; max-width: 650px; background: var(--card-bg);
+            padding: 40px; border: 1px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0,0,0,1); position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Retro Branding */
+        #header {
+            display: flex; align-items: center; gap: 15px;
+            margin-bottom: 30px; border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+        }
+
+        #logo {
+            width: 40px; height: 40px; object-fit: cover;
+            border: 1px solid var(--accent-color);
+        }
+
+        #title { font-size: 14px; letter-spacing: 2px; font-weight: 800; color: var(--accent-color); }
+
+        /* Navigation */
+        #toolbar {
+            position: absolute; top: 15px; right: 20px;
+            display: flex; gap: 15px;
+        }
+
+        button {
+            background: transparent; color: var(--text-dim);
+            border: 1px solid var(--border-color); padding: 4px 10px;
+            font-family: var(--font-mono); font-size: 10px; 
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        button:hover { color: var(--accent-color); border-color: var(--accent-color); background: var(--highlight-bg); }
+        button.active { color: var(--accent-color); border-color: var(--accent-color); }
+
+        /* Content Styling */
+        #view-render, #view-edit { width: 100%; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1, h2, h3 { color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
+        h1 { font-size: 18px; margin-bottom: 30px; }
+        h2 { font-size: 14px; border-left: 3px solid var(--accent-color); padding-left: 10px; margin-top: 40px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 25px; border: 1px solid var(--border-color); }
+        th, td { padding: 12px; border: 1px solid var(--border-color); text-align: left; font-size: 11px; }
+        th { color: var(--accent-color); text-transform: uppercase; font-weight: 800; }
+        tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+        /* Editor */
+        #editor {
+            width: 100%; height: 65vh; background: transparent;
+            color: var(--accent-color); border: 1px solid #111; outline: none;
+            font-family: var(--font-mono); font-size: 13px;
+            resize: none; line-height: 1.6; padding: 10px;
+        }
+
+        #status-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #000; border-top: 1px solid var(--border-color);
+            padding: 5px 20px; font-size: 9px; color: var(--text-dim);
+            display: flex; justify-content: space-between; letter-spacing: 1px;
+        }
+
+        .highlight { color: var(--accent-color); }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <img id="logo" src="kitty.png" alt="sys_logo">
+            <div id="title">SYSTEM_CORE // EVAL_V02</div>
+        </div>
+
+        <div id="toolbar">
+            <button id="btn-view" class="active" onclick="setView('view')">Mode: View</button>
+            <button id="btn-edit" onclick="setView('edit')">Mode: Edit</button>
+        </div>
+
+        <div id="view-render">Initializing system...</div>
+        
+        <div id="view-edit" style="display: none;">
+            <textarea id="editor" spellcheck="false" oninput="handleInput()"></textarea>
+        </div>
+    </div>
+    
+    <div id="status-bar">
+        <div>STATUS: <span id="status-text" class="highlight">CONNECTED</span></div>
+        <div id="save-time">LAST_SYNC: NEVER</div>
+    </div>
+
+    <script>
+        const renderView = document.getElementById('view-render');
+        const editView = document.getElementById('view-edit');
+        const editor = document.getElementById('editor');
+        const statusText = document.getElementById('status-text');
+        const saveTime = document.getElementById('save-time');
+        const btnView = document.getElementById('btn-view');
+        const btnEdit = document.getElementById('btn-edit');
+
+        let autoSaveTimer;
+
+        async function loadContent() {
+            try {
+                const res = await fetch('finalevals.md', { cache: 'no-store' });
+                const text = await res.text();
+                editor.value = text;
+                renderContent(text);
+            } catch (err) {
+                renderView.innerHTML = "SYSTEM ERROR: DATA_FETCH_FAILED";
+            }
+        }
+
+        function renderContent(text) {
+            renderView.innerHTML = marked.parse(text);
+        }
+
+        function setView(mode) {
+            if (mode === 'edit') {
+                renderView.style.display = 'none';
+                editView.style.display = 'block';
+                btnEdit.classList.add('active');
+                btnView.classList.remove('active');
+                editor.focus();
+            } else {
+                renderView.style.display = 'block';
+                editView.style.display = 'none';
+                btnView.classList.add('active');
+                btnEdit.classList.remove('active');
+                renderContent(editor.value);
+            }
+        }
+
+        function handleInput() {
+            statusText.innerText = "WRITING...";
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(saveContent, 1200);
+        }
+
+        async function saveContent() {
+            statusText.innerText = "SYNCING...";
+            try {
+                const res = await fetch('/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: editor.value })
+                });
+                
+                if (res.ok) {
+                    statusText.innerText = "CONNECTED";
+                    saveTime.innerText = "LAST_SYNC: " + new Date().toLocaleTimeString().toUpperCase();
+                } else {
+                    statusText.innerText = "SYNC_ERROR";
+                }
+            } catch (err) {
+                statusText.innerText = "CRITICAL_FAILURE";
+            }
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>
