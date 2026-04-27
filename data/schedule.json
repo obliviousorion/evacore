@@ -87,7 +87,7 @@
       "type": "Comprehensive Exam",
       "course": "SaS",
       "subjectId": "sas",
-      "details": "Comprehensive Examination",
+      "details": "CB",
       "time": "09:00"
     },
     {
@@ -96,7 +96,7 @@
       "type": "Comprehensive Exam",
       "course": "AMP",
       "subjectId": "amp",
-      "details": "Comprehensive Examination",
+      "details": "Comprehensive Examination\nCB/OB",
       "time": "09:00"
     },
     {
@@ -105,7 +105,7 @@
       "type": "Comprehensive Exam",
       "course": "ConSys",
       "subjectId": "consys",
-      "details": "Comprehensive Examination",
+      "details": "Comprehensive Examination\nCB",
       "time": "09:00"
     },
     {
@@ -114,7 +114,7 @@
       "type": "Comprehensive Exam",
       "course": "NPP",
       "subjectId": "npp",
-      "details": "Comprehensive Examination",
+      "details": "Comprehensive Examination\nCB/OB",
       "time": "09:00"
     },
     {
@@ -123,7 +123,7 @@
       "type": "Comprehensive Exam",
       "course": "MuE",
       "subjectId": "mue",
-      "details": "Comprehensive Examination",
+      "details": "Comprehensive Examination\nCB/OB",
       "time": "09:00"
     },
     {
@@ -132,7 +132,7 @@
       "type": "Comprehensive Exam",
       "course": "MuP",
       "subjectId": "mup",
-      "details": "Comprehensive Examination",
+      "details": "Comprehensive Examination\nCB/OB",
       "time": "09:00"
     },
     {
@@ -143,6 +143,24 @@
       "subjectId": "ssp",
       "details": "Comprehensive Examination",
       "time": "14:00"
+    },
+    {
+      "id": "e17772611724168f46",
+      "date": "2026-04-30",
+      "type": "Tutorial Test",
+      "course": "AMP",
+      "subjectId": "amp",
+      "details": "",
+      "time": "17:00"
+    },
+    {
+      "id": "e1777269862716nhip",
+      "date": "2026-04-28",
+      "type": "Presentation",
+      "course": "EDSL",
+      "subjectId": "edsl",
+      "details": "Presentation",
+      "time": "18:00"
     }
   ]
 }
