@@ -60,7 +60,7 @@ export const SEMESTERS: Semester[] = [
         label: "EDSL Lab",
         code: "EEE F215",
         color: "#f472b6",
-        page: null,
+        page: "/subjects/edsl_Rf_theory.html",
       },
     ],
   },

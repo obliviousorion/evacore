@@ -161,6 +161,15 @@
       "subjectId": "edsl",
       "details": "Presentation",
       "time": "18:00"
+    },
+    {
+      "id": "e1777358472439vrws",
+      "date": "2026-04-29",
+      "type": "Viva",
+      "course": "EDSL",
+      "subjectId": "edsl",
+      "details": "Presentation",
+      "time": "18:00"
     }
   ]
 }
