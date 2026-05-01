@@ -18,7 +18,7 @@ export const SEMESTERS: Semester[] = [
         label: "Signals and Systems",
         code: "EEE F341",
         color: "#4ecca3",
-        page: null,
+        page: "/subjects/v1_signals_and_systems_notes.html",
       },
       {
         id: "consys",
@@ -32,7 +32,7 @@ export const SEMESTERS: Semester[] = [
         label: "Atomic and Molecular Physics",
         code: "PHY F241",
         color: "#60a5fa",
-        page: null,
+        page: "C:\Users\orion\Downloads\3-2\evals\public\subjects\amp_phyf241.html",
       },
       {
         id: "npp",

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Signals & Systems — Complete Notes</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], tags: 'ams' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0e0f14;
+    --surface: #15161d;
+    --surface2: #1c1d27;
+    --border: #2a2c3e;
+    --accent: #e8c547;
+    --accent2: #5b8dee;
+    --accent3: #e05c7a;
+    --accent4: #4ecdc4;
+    --accent5: #a78bfa;
+    --text: #e8e9f0;
+    --text-muted: #8a8ca8;
+    --text-dim: #5a5c78;
+    --formula-bg: #111320;
+    --table-head: #1e2035;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0a0b10 0%, #12142080 60%, #0e0f14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(232,197,71,0.08), transparent);
+    pointer-events: none;
+  }
+  .course-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    border: 1px solid rgba(232,197,71,0.35);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,15,20,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    display: flex; flex-wrap: wrap; gap: 0.35rem;
+    justify-content: center;
+  }
+  nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  nav a:hover { color: var(--accent); border-color: rgba(232,197,71,0.3); }
+
+  /* ── LAYOUT ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 4rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: none; } }
+
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: rgba(232,197,71,0.1);
+    border: 1px solid rgba(232,197,71,0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ── SUBSECTION ── */
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin: 2rem 0 0.8rem;
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--accent2);
+  }
+  h4 {
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent4);
+    margin: 1.4rem 0 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  p { margin-bottom: 0.7rem; color: var(--text); }
+
+  /* ── FORMULA BLOCK ── */
+  .formula {
+    background: var(--formula-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 1rem 1.4rem;
+    margin: 0.8rem 0;
+    overflow-x: auto;
+    font-size: 1.05em;
+  }
+  .formula-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .formula-group {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
+    margin: 0.8rem 0;
+  }
+  @media (max-width: 680px) { .formula-group { grid-template-columns: 1fr; } }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.88rem;
+    background: var(--surface);
+  }
+  thead { background: var(--table-head); }
+  thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  tbody td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody tr:hover { background: var(--surface2); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .card.accent-blue { border-left: 3px solid var(--accent2); }
+  .card.accent-pink { border-left: 3px solid var(--accent3); }
+  .card.accent-teal { border-left: 3px solid var(--accent4); }
+  .card.accent-purple { border-left: 3px solid var(--accent5); }
+  .card.accent-gold { border-left: 3px solid var(--accent); }
+
+  /* ── LIST ── */
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.7rem; }
+  li { margin-bottom: 0.3rem; }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  /* ── HIGHLIGHT ── */
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl2 { color: var(--accent2); }
+  .hl3 { color: var(--accent3); }
+  .hl4 { color: var(--accent4); }
+  .hl5 { color: var(--accent5); }
+
+  /* ── NOTE BOX ── */
+  .note {
+    background: rgba(91,141,238,0.08);
+    border: 1px solid rgba(91,141,238,0.2);
+    border-radius: 4px;
+    padding: 0.8rem 1.2rem;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .note::before { content: '⚡ '; color: var(--accent2); }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: rgba(255,255,255,0.07);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    color: var(--accent4);
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-tag">ECE/EEE/INSTR F243 · BITS Pilani · 2025-26</div>
+  <h1>Signals &amp; <span>Systems</span></h1>
+  <p>Complete Notes — All Formulae, Properties &amp; Transforms</p>
+</header>
+
+<nav>
+  <a href="#s1">Signal Ops</a>
+  <a href="#s2">System Props</a>
+  <a href="#s3">Convolution</a>
+  <a href="#s4">CTFS</a>
+  <a href="#s5">CTFT</a>
+  <a href="#s6">Laplace</a>
+  <a href="#s7">Sampling</a>
+  <a href="#s8">DTFS</a>
+  <a href="#s9">DTFT</a>
+  <a href="#s10">Z-Transform</a>
+  <a href="#s11">Filters</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 1: SIGNAL OPERATIONS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Signal Operations &amp; Elementary Signals</h2>
+  </div>
+
+  <h3>Signal Classifications</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>CT Definition</th><th>DT Definition</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Periodic</strong></td><td>$x(t) = x(t+T)$ for all $t$; smallest $T&gt;0$ is fundamental period</td><td>$x[n] = x[n+N]$ for all $n$; smallest integer $N&gt;0$</td></tr>
+        <tr><td><strong>Even</strong></td><td>$x(-t) = x(t)$</td><td>$x[-n] = x[n]$</td></tr>
+        <tr><td><strong>Odd</strong></td><td>$x(-t) = -x(t)$</td><td>$x[-n] = -x[n]$</td></tr>
+        <tr><td><strong>Energy Signal</strong></td><td>$0 &lt; E_x = \int_{-\infty}^{\infty}|x(t)|^2\,dt &lt; \infty$; Power $P=0$</td><td>$0 &lt; E_x = \sum_{n=-\infty}^{\infty}|x[n]|^2 &lt; \infty$</td></tr>
+        <tr><td><strong>Power Signal</strong></td><td>$0 &lt; P_x = \lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|x(t)|^2\,dt &lt; \infty$</td><td>$0 &lt; P_x = \lim_{N\to\infty}\frac{1}{2N+1}\sum_{n=-N}^{N}|x[n]|^2 &lt;\infty$</td></tr>
+        <tr><td><strong>Causal</strong></td><td>$x(t)=0$ for $t&lt;0$</td><td>$x[n]=0$ for $n&lt;0$</td></tr>
+        <tr><td><strong>Anti-causal</strong></td><td>$x(t)=0$ for $t&gt;0$</td><td>$x[n]=0$ for $n&gt;0$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Even-Odd Decomposition</h4>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Even Part (CT)</div>
+      $$\mathcal{E}\{x(t)\} = \frac{x(t)+x(-t)}{2}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Odd Part (CT)</div>
+      $$\mathcal{O}\{x(t)\} = \frac{x(t)-x(-t)}{2}$$
+    </div>
+  </div>
+
+  <h3>Transformations of the Independent Variable</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Operation</th><th>CT</th><th>DT</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Time Shift</td><td>$x(t-t_0)$</td><td>$x[n-n_0]$</td><td>Delay by $t_0 / n_0$</td></tr>
+        <tr><td>Time Reversal</td><td>$x(-t)$</td><td>$x[-n]$</td><td>Flip about origin</td></tr>
+        <tr><td>Time Scaling (CT)</td><td>$x(at)$, $a&gt;1$: compress; $a&lt;1$: expand</td><td>N/A (only integer downsampling)</td><td>Compress/expand</td></tr>
+        <tr><td>Combined</td><td>$x(at-b)$: scale first, then shift by $b/a$</td><td>$x[kn-m]$</td><td>Scale then shift</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Elementary CT Signals</h3>
+
+  <h4>Unit Step &amp; Unit Impulse</h4>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Unit Step</div>
+      $$u(t)=\begin{cases}1,&t\geq 0\\0,&t&lt;0\end{cases}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Relationship</div>
+      $$\delta(t)=\frac{du(t)}{dt},\quad u(t)=\int_{-\infty}^{t}\delta(\tau)\,d\tau$$
+    </div>
+  </div>
+
+  <h4>Dirac Delta (Unit Impulse) Properties</h4>
+  <div class="card accent-gold">
+    <ul>
+      <li><strong>Sifting:</strong> $\displaystyle\int_{-\infty}^{\infty}x(t)\delta(t-t_0)\,dt = x(t_0)$</li>
+      <li><strong>Scaling:</strong> $\delta(at) = \dfrac{1}{|a|}\delta(t)$</li>
+      <li><strong>Even:</strong> $\delta(-t) = \delta(t)$</li>
+      <li><strong>Multiplication:</strong> $x(t)\delta(t-t_0) = x(t_0)\delta(t-t_0)$</li>
+      <li><strong>Derivative (doublet):</strong> $\displaystyle\int x(t)\delta'(t-t_0)\,dt = -x'(t_0)$</li>
+      <li><strong>Replication:</strong> $x(t)*\delta(t-t_0) = x(t-t_0)$</li>
+    </ul>
+  </div>
+
+  <h4>Unit Ramp</h4>
+  <div class="formula">
+    $$r(t)=\begin{cases}t,&t\geq 0\\0,&t&lt;0\end{cases}= t\,u(t),\quad \frac{dr(t)}{dt}=u(t),\quad \frac{du(t)}{dt}=\delta(t)$$
+  </div>
+
+  <h4>Exponential &amp; Sinusoidal Signals</h4>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Complex Exponential</div>
+      $$x(t)=Ce^{st},\quad s=\sigma+j\omega$$
+      $$x(t)=Ce^{\sigma t}e^{j\omega t}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Euler's Formula</div>
+      $$e^{j\omega t}=\cos\omega t + j\sin\omega t$$
+      $$\cos\omega t=\frac{e^{j\omega t}+e^{-j\omega t}}{2}$$
+      $$\sin\omega t=\frac{e^{j\omega t}-e^{-j\omega t}}{2j}$$
+    </div>
+  </div>
+
+  <h4>Sinc Function</h4>
+  <div class="formula">
+    $$\text{sinc}(t)=\frac{\sin(\pi t)}{\pi t},\quad \text{Sa}(x)=\frac{\sin x}{x}=\text{sinc}\!\left(\frac{x}{\pi}\right)$$
+  </div>
+
+  <h3>Elementary DT Signals</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Unit Impulse (Kronecker delta)</div>
+      $$\delta[n]=\begin{cases}1,&n=0\\0,&n\neq 0\end{cases}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Unit Step</div>
+      $$u[n]=\begin{cases}1,&n\geq 0\\0,&n&lt;0\end{cases}$$
+    </div>
+  </div>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Relationship</div>
+      $$\delta[n]=u[n]-u[n-1]$$
+      $$u[n]=\sum_{k=0}^{\infty}\delta[n-k]=\sum_{k=-\infty}^{n}\delta[k]$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Sifting (DT)</div>
+      $$\sum_{n=-\infty}^{\infty}x[n]\,\delta[n-n_0] = x[n_0]$$
+      $$x[n]=\sum_{k=-\infty}^{\infty}x[k]\,\delta[n-k]$$
+    </div>
+  </div>
+
+  <h4>DT Exponential</h4>
+  <div class="formula">
+    $$x[n]=C\alpha^n;\quad |\alpha|&lt;1\Rightarrow\text{decaying},\quad |\alpha|&gt;1\Rightarrow\text{growing}$$
+    $$\alpha=e^{j\omega_0}\Rightarrow x[n]=e^{j\omega_0 n}=\cos(\omega_0 n)+j\sin(\omega_0 n)$$
+    \text{Periodic iff }\omega_0/2\pi = M/N\text{ (rational)},\; N = \text{fundamental period}
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 2: SYSTEM PROPERTIES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>System Properties</h2>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Property</th><th>CT Definition</th><th>DT Definition</th><th>Test</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Linearity</strong></td>
+          <td>$\mathcal{H}\{ax_1+bx_2\}=a\mathcal{H}\{x_1\}+b\mathcal{H}\{x_2\}$</td>
+          <td>Same form for sequences</td>
+          <td>Superposition + Homogeneity</td>
+        </tr>
+        <tr>
+          <td><strong>Time-Invariance</strong></td>
+          <td>$x(t-t_0)\to y(t-t_0)$</td>
+          <td>$x[n-n_0]\to y[n-n_0]$</td>
+          <td>Shift input → shift output by same amount</td>
+        </tr>
+        <tr>
+          <td><strong>Causality</strong></td>
+          <td>$y(t)$ depends only on $x(\tau)$, $\tau\leq t$</td>
+          <td>$y[n]$ depends on $x[k]$, $k\leq n$</td>
+          <td>For LTI: $h(t)=0\;(t&lt;0)$</td>
+        </tr>
+        <tr>
+          <td><strong>Stability (BIBO)</strong></td>
+          <td>$|x(t)|\leq M_x\Rightarrow|y(t)|\leq M_y$</td>
+          <td>Same</td>
+          <td>LTI: $\int_{-\infty}^{\infty}|h(t)|\,dt&lt;\infty$</td>
+        </tr>
+        <tr>
+          <td><strong>Memory</strong></td>
+          <td>Memoryless: $y(t)$ depends only on $x(t)$</td>
+          <td>$y[n]$ depends only on $x[n]$</td>
+          <td>Memoryless LTI: $h(t)=c\,\delta(t)$</td>
+        </tr>
+        <tr>
+          <td><strong>Invertibility</strong></td>
+          <td>Distinct inputs → distinct outputs</td>
+          <td>Same</td>
+          <td>Inverse system $h_i(t)*h(t)=\delta(t)$</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>BIBO Stability Conditions (LTI)</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">CT LTI Stable iff</div>
+      $$\int_{-\infty}^{\infty}|h(t)|\,dt &lt;\infty$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">DT LTI Stable iff</div>
+      $$\sum_{n=-\infty}^{\infty}|h[n]|&lt;\infty$$
+    </div>
+  </div>
+
+  <h3>Interconnections</h3>
+  <div class="card accent-teal">
+    <ul>
+      <li><strong>Series (Cascade):</strong> $h(t) = h_1(t)*h_2(t)$; order can be swapped for LTI systems</li>
+      <li><strong>Parallel:</strong> $h(t) = h_1(t)+h_2(t)$</li>
+      <li><strong>Feedback:</strong> Output fed back through second system to input</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 3: CONVOLUTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>CT &amp; DT Convolution</h2>
+  </div>
+
+  <h3>Definitions</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">CT Convolution Integral</div>
+      $$y(t) = x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)\,h(t-\tau)\,d\tau$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">DT Convolution Sum</div>
+      $$y[n] = x[n]*h[n] = \sum_{k=-\infty}^{\infty}x[k]\,h[n-k]$$
+    </div>
+  </div>
+
+  <h3>Properties of Convolution</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>CT</th><th>DT</th></tr></thead>
+      <tbody>
+        <tr><td>Commutative</td><td>$x*h = h*x$</td><td>$x[n]*h[n]=h[n]*x[n]$</td></tr>
+        <tr><td>Associative</td><td>$(x*h_1)*h_2 = x*(h_1*h_2)$</td><td>$(x*h_1)*h_2 = x*(h_1*h_2)$</td></tr>
+        <tr><td>Distributive</td><td>$x*(h_1+h_2)=x*h_1+x*h_2$</td><td>same</td></tr>
+        <tr><td>Identity</td><td>$x(t)*\delta(t)=x(t)$</td><td>$x[n]*\delta[n]=x[n]$</td></tr>
+        <tr><td>Shift</td><td>$x(t)*\delta(t-t_0)=x(t-t_0)$</td><td>$x[n]*\delta[n-n_0]=x[n-n_0]$</td></tr>
+        <tr><td>Duration</td><td>If $x$ has duration $T_1$ and $h$ has $T_2$, output has $T_1+T_2$</td><td>If $x$ has $N_1$ samples, $h$ has $N_2$: output has $N_1+N_2-1$ samples</td></tr>
+        <tr><td>Width</td><td>Width$(y)=$ Width$(x)+$ Width$(h)$</td><td>Length$(y)=N_1+N_2-1$</td></tr>
+        <tr><td>Differentiation (CT)</td><td>$\frac{d}{dt}[x*h]=\frac{dx}{dt}*h = x*\frac{dh}{dt}$</td><td>—</td></tr>
+        <tr><td>Integration (CT)</td><td>$\int_{-\infty}^{t}(x*h)\,d\tau = \left(\int_{-\infty}^{t}x\,d\tau\right)*h$</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Steps to Compute Convolution (Graphical)</h3>
+  <div class="card accent-blue">
+    <ol>
+      <li>Express $h(\tau)$ from $h(t)$.</li>
+      <li>Flip to get $h(-\tau)$.</li>
+      <li>Shift by $t$: $h(t-\tau)$.</li>
+      <li>Multiply $x(\tau)\cdot h(t-\tau)$ and integrate/sum over $\tau$.</li>
+      <li>Repeat for each interval of $t$.</li>
+    </ol>
+  </div>
+
+  <h3>Key Convolution Results</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Step with Exponential (CT)</div>
+      $$e^{-at}u(t) * u(t) = \frac{1-e^{-at}}{a}u(t)$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Exponential (CT)</div>
+      $$e^{-at}u(t)*e^{-bt}u(t)=\frac{e^{-at}-e^{-bt}}{b-a}u(t),\;a\neq b$$
+    </div>
+  </div>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Geometric Sum (DT)</div>
+      $$\sum_{k=0}^{n}\alpha^k = \frac{1-\alpha^{n+1}}{1-\alpha},\quad \alpha\neq 1$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">DT: $a^n u[n] * u[n]$</div>
+      $$=\frac{1-a^{n+1}}{1-a}u[n],\quad a\neq 1$$
+    </div>
+  </div>
+
+  <h3>LTI System Characterization</h3>
+  <div class="card accent-purple">
+    <p><strong>CT LTI:</strong> $\displaystyle\sum_{k=0}^{N}a_k\frac{d^k y}{dt^k} = \sum_{m=0}^{M}b_m\frac{d^m x}{dt^m}$</p>
+    <p><strong>DT LTI:</strong> $\displaystyle\sum_{k=0}^{N}a_k\,y[n-k] = \sum_{m=0}^{M}b_m\,x[n-m]$</p>
+    <p>For LTI: $H(j\omega)$ or $H(s)$ = transfer function; $y=h*x \xrightarrow{\mathcal{F}} Y=H\cdot X$</p>
+  </div>
+
+  <h4>Eigenfunction Property</h4>
+  <div class="formula">
+    $$\text{CT: }e^{st}\xrightarrow{LTI} H(s)\,e^{st}, \quad H(s)=\int_{-\infty}^{\infty}h(\tau)e^{-s\tau}\,d\tau$$
+    $$\text{DT: }z^n\xrightarrow{LTI} H(z)\,z^n,\quad H(z)=\sum_{n=-\infty}^{\infty}h[n]z^{-n}$$
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 4: CTFS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Continuous-Time Fourier Series (CTFS)</h2>
+  </div>
+
+  <h3>Synthesis &amp; Analysis Equations</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Synthesis (Inverse)</div>
+      $$x(t) = \sum_{k=-\infty}^{\infty}a_k\,e^{jk\omega_0 t},\quad \omega_0=\frac{2\pi}{T}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Analysis (Forward)</div>
+      $$a_k = \frac{1}{T}\int_{T}x(t)\,e^{-jk\omega_0 t}\,dt$$
+    </div>
+  </div>
+
+  <h4>Trigonometric Form</h4>
+  <div class="formula">
+    $$x(t)=a_0+\sum_{k=1}^{\infty}\left[A_k\cos(k\omega_0 t)+B_k\sin(k\omega_0 t)\right]$$
+    $$A_k=2\,\text{Re}\{a_k\},\quad B_k=-2\,\text{Im}\{a_k\},\quad a_0=\frac{1}{T}\int_T x(t)\,dt$$
+  </div>
+
+  <h3>Properties of CTFS</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Signal</th><th>FS Coefficients</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$Ax(t)+By(t)$</td><td>$Aa_k+Bb_k$</td></tr>
+        <tr><td>Time Shift</td><td>$x(t-t_0)$</td><td>$a_k\,e^{-jk\omega_0 t_0}$</td></tr>
+        <tr><td>Time Reversal</td><td>$x(-t)$</td><td>$a_{-k}$</td></tr>
+        <tr><td>Time Scaling</td><td>$x(\alpha t)$, period $T/\alpha$</td><td>$a_k$ (same), $\omega_0\to\alpha\omega_0$</td></tr>
+        <tr><td>Multiplication</td><td>$x(t)\,y(t)$</td><td>$\sum_{l=-\infty}^{\infty}a_l\,b_{k-l}$ (convolution)</td></tr>
+        <tr><td>Convolution</td><td>$x(t)*y(t)$</td><td>$T\,a_k\,b_k$</td></tr>
+        <tr><td>Conjugate</td><td>$x^*(t)$</td><td>$a^*_{-k}$</td></tr>
+        <tr><td>Differentiation</td><td>$\dfrac{dx}{dt}$</td><td>$jk\omega_0\,a_k$</td></tr>
+        <tr><td>Integration</td><td>$\int_{-\infty}^{t}x(\tau)\,d\tau$</td><td>$\dfrac{a_k}{jk\omega_0}$ (finite only if $a_0=0$)</td></tr>
+        <tr><td>Real $x(t)$</td><td>$x(t)\in\mathbb{R}$</td><td>$a_{-k}=a_k^*$; $|a_k|=|a_{-k}|$; $\angle a_k=-\angle a_{-k}$</td></tr>
+        <tr><td>Real &amp; Even</td><td>$x(t)$ real, even</td><td>$a_k$ real and even</td></tr>
+        <tr><td>Real &amp; Odd</td><td>$x(t)$ real, odd</td><td>$a_k$ purely imaginary, odd</td></tr>
+        <tr><td>Parseval's</td><td colspan="2">$\dfrac{1}{T}\displaystyle\int_T|x(t)|^2\,dt = \sum_{k=-\infty}^{\infty}|a_k|^2$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common CTFS Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Signal (period $T$)</th><th>$a_k$</th></tr></thead>
+      <tbody>
+        <tr><td>$e^{jn\omega_0 t}$</td><td>$\delta[k-n]$</td></tr>
+        <tr><td>$\cos(n\omega_0 t)$</td><td>$\tfrac{1}{2}[\delta(k-n)+\delta(k+n)]$</td></tr>
+        <tr><td>$\sin(n\omega_0 t)$</td><td>$\tfrac{1}{2j}[\delta(k-n)-\delta(k+n)]$</td></tr>
+        <tr><td>Rectangular pulse train, pulse width $\tau$</td><td>$a_k = \dfrac{\tau}{T}\,\text{sinc}\!\left(\dfrac{k\tau}{T}\right) = \dfrac{\sin(k\omega_0\tau/2)}{k\pi}$</td></tr>
+        <tr><td>$\sum_{n=-\infty}^{\infty}\delta(t-nT)$ (impulse train)</td><td>$\dfrac{1}{T}$ for all $k$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Dirichlet Conditions (Convergence)</h3>
+  <div class="card accent-gold">
+    <ol>
+      <li>$x(t)$ is absolutely integrable over one period.</li>
+      <li>Finite number of maxima/minima in one period.</li>
+      <li>Finite number of discontinuities in one period (each finite).</li>
+      <li>At discontinuities, FS converges to average of left and right limits (Gibbs phenomenon ≈9%).</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 5: CTFT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>CT Fourier Transform (CTFT)</h2>
+  </div>
+
+  <h3>Transform Pair</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Forward CTFT</div>
+      $$X(j\omega)=\mathcal{F}\{x(t)\}=\int_{-\infty}^{\infty}x(t)\,e^{-j\omega t}\,dt$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Inverse CTFT</div>
+      $$x(t)=\mathcal{F}^{-1}\{X(j\omega)\}=\frac{1}{2\pi}\int_{-\infty}^{\infty}X(j\omega)\,e^{j\omega t}\,d\omega$$
+    </div>
+  </div>
+
+  <h3>Properties of CTFT</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Time Domain</th><th>Frequency Domain</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$ax(t)+by(t)$</td><td>$aX(j\omega)+bY(j\omega)$</td></tr>
+        <tr><td>Time Shift</td><td>$x(t-t_0)$</td><td>$e^{-j\omega t_0}X(j\omega)$</td></tr>
+        <tr><td>Frequency Shift</td><td>$e^{j\omega_0 t}x(t)$</td><td>$X(j(\omega-\omega_0))$</td></tr>
+        <tr><td>Time Scaling</td><td>$x(at)$</td><td>$\dfrac{1}{|a|}X\!\left(\dfrac{j\omega}{a}\right)$</td></tr>
+        <tr><td>Conjugation</td><td>$x^*(t)$</td><td>$X^*(-j\omega)$</td></tr>
+        <tr><td>Time Reversal</td><td>$x(-t)$</td><td>$X(-j\omega)$</td></tr>
+        <tr><td>Differentiation (time)</td><td>$\dfrac{d^n x}{dt^n}$</td><td>$(j\omega)^n X(j\omega)$</td></tr>
+        <tr><td>Integration</td><td>$\displaystyle\int_{-\infty}^{t}x(\tau)\,d\tau$</td><td>$\dfrac{X(j\omega)}{j\omega}+\pi X(0)\delta(\omega)$</td></tr>
+        <tr><td>Differentiation (freq)</td><td>$(-jt)^n x(t)$</td><td>$\dfrac{d^n X}{d\omega^n}$</td></tr>
+        <tr><td>Multiplication</td><td>$x(t)\,y(t)$</td><td>$\dfrac{1}{2\pi}X(j\omega)*Y(j\omega)$</td></tr>
+        <tr><td>Convolution</td><td>$x(t)*y(t)$</td><td>$X(j\omega)\cdot Y(j\omega)$</td></tr>
+        <tr><td>Duality</td><td>$X(jt)$</td><td>$2\pi\,x(-\omega)$</td></tr>
+        <tr><td>Parseval's</td><td colspan="2">$\displaystyle\int_{-\infty}^{\infty}|x(t)|^2\,dt = \frac{1}{2\pi}\int_{-\infty}^{\infty}|X(j\omega)|^2\,d\omega$</td></tr>
+        <tr><td>Real $x(t)$</td><td>$x(t)\in\mathbb{R}$</td><td>$X(-j\omega)=X^*(j\omega)$; $|X(-j\omega)|=|X(j\omega)|$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common CTFT Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>$x(t)$</th><th>$X(j\omega)$</th></tr></thead>
+      <tbody>
+        <tr><td>$\delta(t)$</td><td>$1$</td></tr>
+        <tr><td>$1$</td><td>$2\pi\,\delta(\omega)$</td></tr>
+        <tr><td>$u(t)$</td><td>$\dfrac{1}{j\omega}+\pi\delta(\omega)$</td></tr>
+        <tr><td>$e^{-at}u(t),\;a&gt;0$</td><td>$\dfrac{1}{a+j\omega}$</td></tr>
+        <tr><td>$e^{at}u(-t),\;a&gt;0$</td><td>$\dfrac{1}{a-j\omega}$</td></tr>
+        <tr><td>$t\,e^{-at}u(t),\;a&gt;0$</td><td>$\dfrac{1}{(a+j\omega)^2}$</td></tr>
+        <tr><td>$e^{-a|t|},\;a&gt;0$</td><td>$\dfrac{2a}{a^2+\omega^2}$</td></tr>
+        <tr><td>$\text{rect}\!\left(\dfrac{t}{\tau}\right)=\Pi(t/\tau)$</td><td>$\tau\,\text{sinc}\!\left(\dfrac{\omega\tau}{2\pi}\right)=\dfrac{2\sin(\omega\tau/2)}{\omega}$</td></tr>
+        <tr><td>$\text{sinc}(Wt)=\dfrac{\sin(\pi W t)}{\pi t}$</td><td>$\dfrac{1}{W}\text{rect}\!\left(\dfrac{\omega}{2\pi W}\right)$</td></tr>
+        <tr><td>$e^{j\omega_0 t}$</td><td>$2\pi\,\delta(\omega-\omega_0)$</td></tr>
+        <tr><td>$\cos(\omega_0 t)$</td><td>$\pi[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]$</td></tr>
+        <tr><td>$\sin(\omega_0 t)$</td><td>$\dfrac{\pi}{j}[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)]$</td></tr>
+        <tr><td>$\text{sgn}(t)$</td><td>$\dfrac{2}{j\omega}$</td></tr>
+        <tr><td>$\displaystyle\sum_{n=-\infty}^{\infty}\delta(t-nT)$</td><td>$\dfrac{2\pi}{T}\displaystyle\sum_{k=-\infty}^{\infty}\delta\!\left(\omega-\dfrac{2\pi k}{T}\right)$</td></tr>
+        <tr><td>$e^{-at}\cos(\omega_0 t)u(t)$</td><td>$\dfrac{a+j\omega}{(a+j\omega)^2+\omega_0^2}$</td></tr>
+        <tr><td>$e^{-at}\sin(\omega_0 t)u(t)$</td><td>$\dfrac{\omega_0}{(a+j\omega)^2+\omega_0^2}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Frequency Response of LTI Systems</h3>
+  <div class="formula">
+    $$H(j\omega)=\frac{Y(j\omega)}{X(j\omega)}=|H(j\omega)|\,e^{j\angle H(j\omega)}$$
+    $$y(t) = |H(j\omega_0)|\cos\!\left(\omega_0 t + \angle H(j\omega_0)\right)\;\text{for input }\cos(\omega_0 t)$$
+  </div>
+  <div class="formula">
+    $$\text{For diff. eq.: }\sum a_k\frac{d^k y}{dt^k}=\sum b_m\frac{d^m x}{dt^m}\;\Rightarrow\; H(j\omega)=\frac{\sum b_m(j\omega)^m}{\sum a_k(j\omega)^k}$$
+  </div>
+
+  <h3>Ideal Filters</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Filter</th><th>$H(j\omega)$</th><th>Impulse Response</th></tr></thead>
+      <tbody>
+        <tr><td>Ideal LPF (BW = $W$)</td><td>$\text{rect}\!\left(\dfrac{\omega}{2W}\right)e^{-j\omega t_d}$</td><td>$\dfrac{W}{\pi}\text{sinc}\!\left(\dfrac{W(t-t_d)}{\pi}\right)$</td></tr>
+        <tr><td>Ideal HPF</td><td>$1-H_{LPF}(j\omega)$</td><td>$\delta(t-t_d)-h_{LPF}(t)$</td></tr>
+        <tr><td>Ideal BPF ($\omega_1$ to $\omega_2$)</td><td>$H_{LPF}(\omega-\omega_c)+H_{LPF}(\omega+\omega_c)$</td><td>$2\cos(\omega_c t)h_{LPF}(t)$</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 6: LAPLACE TRANSFORM -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Laplace Transform</h2>
+  </div>
+
+  <h3>Definition</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Bilateral (Two-sided) Laplace</div>
+      $$X(s)=\mathcal{L}\{x(t)\}=\int_{-\infty}^{\infty}x(t)\,e^{-st}\,dt,\quad s=\sigma+j\omega$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Unilateral (One-sided) Laplace</div>
+      $$X(s)=\int_{0^-}^{\infty}x(t)\,e^{-st}\,dt$$
+    </div>
+  </div>
+  <div class="formula">
+    <div class="formula-label">Inverse Laplace (Bromwich Integral)</div>
+    $$x(t)=\mathcal{L}^{-1}\{X(s)\}=\frac{1}{2\pi j}\int_{\sigma-j\infty}^{\sigma+j\infty}X(s)\,e^{st}\,ds$$
+  </div>
+
+  <h3>Region of Convergence (ROC)</h3>
+  <div class="card accent-pink">
+    <ul>
+      <li>ROC is a vertical strip in the $s$-plane: $\sigma_1 &lt; \text{Re}\{s\} &lt; \sigma_2$</li>
+      <li><strong>Right-sided signal:</strong> ROC is a right half-plane $\text{Re}\{s\} &gt; \sigma_{max}$</li>
+      <li><strong>Left-sided signal:</strong> ROC is a left half-plane $\text{Re}\{s\} &lt; \sigma_{min}$</li>
+      <li><strong>Two-sided signal:</strong> ROC is a vertical strip (may be empty)</li>
+      <li><strong>Finite-duration:</strong> ROC is entire $s$-plane (except $s=0$ or $|s|=\infty$ possibly)</li>
+      <li>ROC contains no poles</li>
+      <li><strong>Causal &amp; stable:</strong> All poles in left half-plane AND ROC includes $j\omega$-axis</li>
+    </ul>
+  </div>
+
+  <h3>Properties of Laplace Transform</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Time Domain</th><th>$s$-Domain</th><th>ROC</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$ax(t)+by(t)$</td><td>$aX(s)+bY(s)$</td><td>At least $R_x\cap R_y$</td></tr>
+        <tr><td>Time Shift</td><td>$x(t-t_0)$</td><td>$e^{-st_0}X(s)$</td><td>$R_x$</td></tr>
+        <tr><td>Frequency Shift</td><td>$e^{s_0 t}x(t)$</td><td>$X(s-s_0)$</td><td>$R_x$ shifted by $\text{Re}\{s_0\}$</td></tr>
+        <tr><td>Time Scaling</td><td>$x(at),\;a&gt;0$</td><td>$\dfrac{1}{a}X\!\left(\dfrac{s}{a}\right)$</td><td>Scaled ROC</td></tr>
+        <tr><td>Time Reversal</td><td>$x(-t)$</td><td>$X(-s)$</td><td>$-R_x$</td></tr>
+        <tr><td>Differentiation (time)</td><td>$\dfrac{d^n x}{dt^n}$</td><td>$s^n X(s)$ (unilateral: initial conditions)</td><td>$\supseteq R_x$</td></tr>
+        <tr><td>Unilateral Diff.</td><td>$\dot{x}(t)$</td><td>$sX(s)-x(0^-)$</td><td></td></tr>
+        <tr><td>2nd order unilateral</td><td>$\ddot{x}(t)$</td><td>$s^2X(s)-sx(0^-)-\dot{x}(0^-)$</td><td></td></tr>
+        <tr><td>Integration</td><td>$\displaystyle\int_{-\infty}^{t}x(\tau)\,d\tau$</td><td>$\dfrac{X(s)}{s}$</td><td>$R_x\cap\{\text{Re}\{s\}&gt;0\}$</td></tr>
+        <tr><td>Multiply by $t$</td><td>$t^n x(t)$</td><td>$(-1)^n\dfrac{d^n X}{ds^n}$</td><td>$R_x$</td></tr>
+        <tr><td>Convolution</td><td>$x(t)*y(t)$</td><td>$X(s)\cdot Y(s)$</td><td>$\supseteq R_x\cap R_y$</td></tr>
+        <tr><td>Initial Value</td><td>$x(0^+)$</td><td>$\lim_{s\to\infty}sX(s)$</td><td>(unilateral, causal)</td></tr>
+        <tr><td>Final Value</td><td>$\lim_{t\to\infty}x(t)$</td><td>$\lim_{s\to 0}sX(s)$</td><td>poles of $sX(s)$ in LHP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Laplace Transform Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>$x(t)$</th><th>$X(s)$</th><th>ROC</th></tr></thead>
+      <tbody>
+        <tr><td>$\delta(t)$</td><td>$1$</td><td>All $s$</td></tr>
+        <tr><td>$u(t)$</td><td>$\dfrac{1}{s}$</td><td>$\text{Re}\{s\}&gt;0$</td></tr>
+        <tr><td>$-u(-t)$</td><td>$\dfrac{1}{s}$</td><td>$\text{Re}\{s\}&lt;0$</td></tr>
+        <tr><td>$t^n u(t)$</td><td>$\dfrac{n!}{s^{n+1}}$</td><td>$\text{Re}\{s\}&gt;0$</td></tr>
+        <tr><td>$e^{-at}u(t)$</td><td>$\dfrac{1}{s+a}$</td><td>$\text{Re}\{s\}&gt;-a$</td></tr>
+        <tr><td>$-e^{-at}u(-t)$</td><td>$\dfrac{1}{s+a}$</td><td>$\text{Re}\{s\}&lt;-a$</td></tr>
+        <tr><td>$t\,e^{-at}u(t)$</td><td>$\dfrac{1}{(s+a)^2}$</td><td>$\text{Re}\{s\}&gt;-a$</td></tr>
+        <tr><td>$\dfrac{t^{n-1}}{(n-1)!}e^{-at}u(t)$</td><td>$\dfrac{1}{(s+a)^n}$</td><td>$\text{Re}\{s\}&gt;-a$</td></tr>
+        <tr><td>$e^{-at}\cos(\omega_0 t)u(t)$</td><td>$\dfrac{s+a}{(s+a)^2+\omega_0^2}$</td><td>$\text{Re}\{s\}&gt;-a$</td></tr>
+        <tr><td>$e^{-at}\sin(\omega_0 t)u(t)$</td><td>$\dfrac{\omega_0}{(s+a)^2+\omega_0^2}$</td><td>$\text{Re}\{s\}&gt;-a$</td></tr>
+        <tr><td>$\cos(\omega_0 t)u(t)$</td><td>$\dfrac{s}{s^2+\omega_0^2}$</td><td>$\text{Re}\{s\}&gt;0$</td></tr>
+        <tr><td>$\sin(\omega_0 t)u(t)$</td><td>$\dfrac{\omega_0}{s^2+\omega_0^2}$</td><td>$\text{Re}\{s\}&gt;0$</td></tr>
+        <tr><td>$\delta(t-t_0)$</td><td>$e^{-st_0}$</td><td>All $s$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Partial Fraction Expansion (Inverse Laplace)</h3>
+  <div class="formula">
+    $$X(s)=\frac{N(s)}{D(s)}=\sum_{k=1}^{N}\frac{A_k}{s-p_k}\quad\text{(simple poles)}$$
+    $$A_k = \left.(s-p_k)X(s)\right|_{s=p_k}$$
+    $$\text{Repeated pole of order }r:\; X(s)=\frac{A_{1}}{(s-p)^r}+\frac{A_{2}}{(s-p)^{r-1}}+\cdots, \quad A_k = \frac{1}{(r-k)!}\frac{d^{r-k}}{ds^{r-k}}\left[(s-p)^r X(s)\right]_{s=p}$$
+  </div>
+
+  <h3>Transfer Function &amp; Stability</h3>
+  <div class="formula">
+    $$H(s)=\frac{Y(s)}{X(s)}=\frac{\sum_{m=0}^{M}b_m s^m}{\sum_{k=0}^{N}a_k s^k}$$
+  </div>
+  <div class="card accent-blue">
+    <ul>
+      <li><strong>BIBO Stable:</strong> All poles of $H(s)$ have $\text{Re}\{p_k\}&lt;0$ (strictly LHP)</li>
+      <li><strong>Causal:</strong> ROC is $\text{Re}\{s\}&gt;\max(\text{Re}\{p_k\})$</li>
+      <li><strong>Causally stable:</strong> ROC includes $j\omega$-axis</li>
+      <li>$H(j\omega) = H(s)|_{s=j\omega}$ (only if $j\omega$-axis in ROC)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 7: SAMPLING -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Sampling Theorem</h2>
+  </div>
+
+  <h3>Ideal Sampling (Impulse Train)</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Sampled Signal</div>
+      $$x_s(t)=x(t)\cdot p(t),\quad p(t)=\sum_{n=-\infty}^{\infty}\delta(t-nT_s)$$
+      $$x_s(t)=\sum_{n=-\infty}^{\infty}x(nT_s)\,\delta(t-nT_s)$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Spectrum of Sampled Signal</div>
+      $$X_s(j\omega)=\frac{1}{T_s}\sum_{k=-\infty}^{\infty}X(j(\omega-k\omega_s))$$
+      $$\omega_s=\frac{2\pi}{T_s}=2\pi f_s$$
+    </div>
+  </div>
+
+  <h3>Nyquist-Shannon Sampling Theorem</h3>
+  <div class="card accent-gold">
+    <p>A band-limited signal $x(t)$ with $X(j\omega)=0$ for $|\omega|&gt;\omega_M$ can be <strong>perfectly reconstructed</strong> from its samples if:</p>
+    $$\omega_s \geq 2\omega_M \quad\Leftrightarrow\quad f_s \geq 2f_M \quad\Leftrightarrow\quad T_s \leq \frac{1}{2f_M}$$
+    <p><strong>Nyquist rate:</strong> $f_{Nyq} = 2f_M$</p>
+    <p><strong>Nyquist interval:</strong> $T_{Nyq} = \dfrac{1}{2f_M}$</p>
+  </div>
+
+  <h3>Reconstruction (Ideal Interpolation)</h3>
+  <div class="formula">
+    $$x(t) = \sum_{n=-\infty}^{\infty}x[n]\,\text{sinc}\!\left(\frac{t-nT_s}{T_s}\right) = \sum_{n=-\infty}^{\infty}x(nT_s)\frac{\sin(\pi(t-nT_s)/T_s)}{\pi(t-nT_s)/T_s}$$
+    \text{Reconstruction filter: ideal LPF with } H_r(j\omega)=T_s,\;|\omega|<\omega_s/2
+  </div>
+
+  <h3>Aliasing</h3>
+  <div class="card accent-pink">
+    <ul>
+      <li>Occurs when $\omega_s &lt; 2\omega_M$: spectral replicas overlap.</li>
+      <li>High-frequency components appear as low-frequency aliases.</li>
+      <li><strong>Anti-aliasing filter:</strong> LPF with cutoff $\omega_s/2$ applied before sampling.</li>
+      <li>Alias frequency: $f_{alias} = |f - nf_s|$ for the appropriate integer $n$.</li>
+    </ul>
+  </div>
+
+  <h3>Practical Sampling Methods</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Method</th><th>Description</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ideal (Impulse) Sampling</td><td>Multiply by impulse train</td><td>Theoretical; infinite bandwidth samples</td></tr>
+        <tr><td>Natural Sampling</td><td>Multiply by rectangular pulse train</td><td>$X_s(j\omega)=\frac{\tau}{T_s}\sum_k \text{sinc}(k\omega_0\tau/2\pi)X(j(\omega-k\omega_s))$</td></tr>
+        <tr><td>Sample-and-Hold (ZOH)</td><td>Hold value constant between samples</td><td>Introduces distortion; $H_{ZOH}(j\omega)=T_s\,\text{sinc}(\omega T_s/2\pi)\,e^{-j\omega T_s/2}$</td></tr>
+        <tr><td>Quantization</td><td>Amplitude discretization</td><td>Quantization noise $\approx \Delta^2/12$ where $\Delta$ = step size</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Discrete-Time Processing of CT Signals</h3>
+  <div class="formula">
+    $$\omega = \Omega T_s \quad (\Omega=\text{CT freq},\;\omega=\text{DT freq})$$
+    $$H_{eff}(j\Omega) = H(e^{j\Omega T_s})\quad\text{for }|\Omega|&lt;\frac{\omega_s}{2}$$
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 8: DTFS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2>Discrete-Time Fourier Series (DTFS)</h2>
+  </div>
+
+  <h3>Transform Pair (DFS / DTFS)</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Synthesis</div>
+      $$x[n]=\sum_{k=\langle N\rangle}a_k\,e^{jk\omega_0 n},\quad \omega_0=\frac{2\pi}{N}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Analysis</div>
+      $$a_k=\frac{1}{N}\sum_{n=\langle N\rangle}x[n]\,e^{-jk\omega_0 n}$$
+    </div>
+  </div>
+  <div class="note">DTFS coefficients are periodic with period $N$: $a_{k+N}=a_k$. Only $N$ distinct coefficients.</div>
+
+  <h3>DFT Form (Finite-length)</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">DFT</div>
+      $$X[k]=\sum_{n=0}^{N-1}x[n]\,W_N^{kn},\quad W_N=e^{-j2\pi/N}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">IDFT</div>
+      $$x[n]=\frac{1}{N}\sum_{k=0}^{N-1}X[k]\,W_N^{-kn}$$
+    </div>
+  </div>
+  <div class="note">Relation: $X[k]=N\cdot a_k$</div>
+
+  <h3>Properties of DTFS</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Sequence (period $N$)</th><th>FS Coefficients $a_k$</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$Ax[n]+By[n]$</td><td>$Aa_k+Bb_k$</td></tr>
+        <tr><td>Time Shift</td><td>$x[n-n_0]$</td><td>$a_k\,e^{-jk(2\pi/N)n_0}$</td></tr>
+        <tr><td>Frequency Shift</td><td>$e^{jm(2\pi/N)n}x[n]$</td><td>$a_{k-m}$</td></tr>
+        <tr><td>Time Reversal</td><td>$x[-n]$</td><td>$a_{-k}$</td></tr>
+        <tr><td>Conjugate</td><td>$x^*[n]$</td><td>$a^*_{-k}$</td></tr>
+        <tr><td>Multiplication</td><td>$x[n]\,y[n]$</td><td>$\sum_{l=\langle N\rangle}a_l\,b_{k-l}$ (circular conv.)</td></tr>
+        <tr><td>Circular Convolution</td><td>$\sum_{m=\langle N\rangle}x[m]\,y[n-m]$</td><td>$N\,a_k\,b_k$</td></tr>
+        <tr><td>First Difference</td><td>$x[n]-x[n-1]$</td><td>$(1-e^{-jk\omega_0})a_k$</td></tr>
+        <tr><td>Real $x[n]$</td><td>$x[n]\in\mathbb{R}$</td><td>$a_{-k}=a_k^*$</td></tr>
+        <tr><td>Parseval's</td><td colspan="2">$\dfrac{1}{N}\displaystyle\sum_{n=\langle N\rangle}|x[n]|^2 = \sum_{k=\langle N\rangle}|a_k|^2$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common DTFS Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>$x[n]$ (period $N$)</th><th>$a_k$</th></tr></thead>
+      <tbody>
+        <tr><td>$e^{jk_0(2\pi/N)n}$</td><td>$\delta[k-k_0]$ (mod $N$)</td></tr>
+        <tr><td>$\cos(k_0\omega_0 n)$</td><td>$\tfrac{1}{2}[\delta(k-k_0)+\delta(k+k_0)]$ (mod $N$)</td></tr>
+        <tr><td>$\sin(k_0\omega_0 n)$</td><td>$\tfrac{1}{2j}[\delta(k-k_0)-\delta(k+k_0)]$</td></tr>
+        <tr><td>Rectangular pulse: $x[n]=1$ for $|n|\leq N_1$</td><td>$a_k=\dfrac{\sin(k\omega_0(N_1+\tfrac{1}{2}))}{N\sin(k\omega_0/2)}$</td></tr>
+        <tr><td>$\sum_{m}\delta[n-mN]$ (impulse train)</td><td>$\dfrac{1}{N}$ for all $k$</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 9: DTFT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <h2>Discrete-Time Fourier Transform (DTFT)</h2>
+  </div>
+
+  <h3>Transform Pair</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Forward DTFT</div>
+      $$X(e^{j\omega})=\sum_{n=-\infty}^{\infty}x[n]\,e^{-j\omega n}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Inverse DTFT</div>
+      $$x[n]=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})\,e^{j\omega n}\,d\omega$$
+    </div>
+  </div>
+  <div class="note">$X(e^{j\omega})$ is always $2\pi$-periodic in $\omega$. Fundamental range: $\omega\in[-\pi,\pi]$ or $[0,2\pi)$.</div>
+
+  <h3>Properties of DTFT</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Time Domain $x[n]$</th><th>Frequency Domain $X(e^{j\omega})$</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$ax[n]+by[n]$</td><td>$aX(e^{j\omega})+bY(e^{j\omega})$</td></tr>
+        <tr><td>Time Shift</td><td>$x[n-n_0]$</td><td>$e^{-j\omega n_0}X(e^{j\omega})$</td></tr>
+        <tr><td>Frequency Shift</td><td>$e^{j\omega_0 n}x[n]$</td><td>$X(e^{j(\omega-\omega_0)})$</td></tr>
+        <tr><td>Conjugation</td><td>$x^*[n]$</td><td>$X^*(e^{-j\omega})$</td></tr>
+        <tr><td>Time Reversal</td><td>$x[-n]$</td><td>$X(e^{-j\omega})$</td></tr>
+        <tr><td>Time Expansion</td><td>$x_{(k)}[n]=x[n/k]$ if $k|n$, else 0</td><td>$X(e^{jk\omega})$</td></tr>
+        <tr><td>Differentiation (freq)</td><td>$n\,x[n]$</td><td>$j\dfrac{dX(e^{j\omega})}{d\omega}$</td></tr>
+        <tr><td>Convolution</td><td>$x[n]*y[n]$</td><td>$X(e^{j\omega})\cdot Y(e^{j\omega})$</td></tr>
+        <tr><td>Multiplication</td><td>$x[n]\,y[n]$</td><td>$\dfrac{1}{2\pi}X(e^{j\omega})*Y(e^{j\omega})$ (periodic conv.)</td></tr>
+        <tr><td>First Difference</td><td>$x[n]-x[n-1]$</td><td>$(1-e^{-j\omega})X(e^{j\omega})$</td></tr>
+        <tr><td>Accumulation</td><td>$\sum_{k=-\infty}^{n}x[k]$</td><td>$\dfrac{X(e^{j\omega})}{1-e^{-j\omega}}+\pi X(e^{j0})\sum_k\delta(\omega-2\pi k)$</td></tr>
+        <tr><td>Real $x[n]$</td><td>$x[n]\in\mathbb{R}$</td><td>$X(e^{-j\omega})=X^*(e^{j\omega})$</td></tr>
+        <tr><td>Real &amp; Even</td><td>$x[n]$ real, even</td><td>$X(e^{j\omega})$ real, even</td></tr>
+        <tr><td>Real &amp; Odd</td><td>$x[n]$ real, odd</td><td>$X(e^{j\omega})$ purely imaginary, odd</td></tr>
+        <tr><td>Parseval's</td><td colspan="2">$\displaystyle\sum_{n=-\infty}^{\infty}|x[n]|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi}|X(e^{j\omega})|^2\,d\omega$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common DTFT Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>$x[n]$</th><th>$X(e^{j\omega})$</th></tr></thead>
+      <tbody>
+        <tr><td>$\delta[n]$</td><td>$1$</td></tr>
+        <tr><td>$\delta[n-n_0]$</td><td>$e^{-j\omega n_0}$</td></tr>
+        <tr><td>$1$ (all $n$)</td><td>$2\pi\displaystyle\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)$</td></tr>
+        <tr><td>$u[n]$</td><td>$\dfrac{1}{1-e^{-j\omega}}+\pi\displaystyle\sum_k\delta(\omega-2\pi k)$</td></tr>
+        <tr><td>$a^n u[n],\;|a|&lt;1$</td><td>$\dfrac{1}{1-ae^{-j\omega}}$</td></tr>
+        <tr><td>$(n+1)a^n u[n],\;|a|&lt;1$</td><td>$\dfrac{1}{(1-ae^{-j\omega})^2}$</td></tr>
+        <tr><td>$\dfrac{\sin(\omega_c n)}{\pi n}$</td><td>$\text{rect}\!\left(\dfrac{\omega}{2\omega_c}\right) = \begin{cases}1,&|\omega|&lt;\omega_c\\0,&\omega_c&lt;|\omega|\leq\pi\end{cases}$</td></tr>
+        <tr><td>$e^{j\omega_0 n}$</td><td>$2\pi\displaystyle\sum_k\delta(\omega-\omega_0-2\pi k)$</td></tr>
+        <tr><td>$\cos(\omega_0 n)$</td><td>$\pi\displaystyle\sum_k[\delta(\omega-\omega_0-2\pi k)+\delta(\omega+\omega_0-2\pi k)]$</td></tr>
+        <tr><td>$\sin(\omega_0 n)$</td><td>$\dfrac{\pi}{j}\displaystyle\sum_k[\delta(\omega-\omega_0-2\pi k)-\delta(\omega+\omega_0-2\pi k)]$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Frequency Response of DT LTI Systems</h3>
+  <div class="formula">
+    $$H(e^{j\omega})=\sum_{n=-\infty}^{\infty}h[n]\,e^{-j\omega n}=\frac{Y(e^{j\omega})}{X(e^{j\omega})}$$
+    $$\text{From difference equation: }H(e^{j\omega})=\frac{\sum_{m=0}^{M}b_m\,e^{-j\omega m}}{\sum_{k=0}^{N}a_k\,e^{-j\omega k}}$$
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 10: Z-TRANSFORM -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <h2>Z-Transform</h2>
+  </div>
+
+  <h3>Definition</h3>
+  <div class="formula-group">
+    <div class="formula">
+      <div class="formula-label">Bilateral Z-Transform</div>
+      $$X(z)=\mathcal{Z}\{x[n]\}=\sum_{n=-\infty}^{\infty}x[n]\,z^{-n},\quad z\in\mathbb{C}$$
+    </div>
+    <div class="formula">
+      <div class="formula-label">Inverse Z-Transform</div>
+      $$x[n]=\frac{1}{2\pi j}\oint_C X(z)\,z^{n-1}\,dz$$
+    </div>
+  </div>
+  <div class="note">Relation to DTFT: $X(e^{j\omega}) = X(z)\big|_{z=e^{j\omega}}$ (if unit circle is in ROC)</div>
+
+  <h3>Region of Convergence (ROC) for Z-Transform</h3>
+  <div class="card accent-pink">
+    <ul>
+      <li>ROC is an annulus: $r_1 &lt; |z| &lt; r_2$ in the $z$-plane</li>
+      <li><strong>Right-sided (causal):</strong> ROC is $|z|&gt;r_{max}$ (outside largest pole ring)</li>
+      <li><strong>Left-sided:</strong> ROC is $|z|&lt;r_{min}$ (inside smallest pole ring)</li>
+      <li><strong>Two-sided:</strong> ROC is an annulus $r_1&lt;|z|&lt;r_2$</li>
+      <li><strong>Finite duration:</strong> Entire $z$-plane except possibly $z=0$ or $z=\infty$</li>
+      <li>ROC contains no poles</li>
+      <li><strong>Stable causal:</strong> ROC includes unit circle $|z|=1$</li>
+    </ul>
+  </div>
+
+  <h3>Properties of Z-Transform</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Sequence</th><th>Z-Transform</th><th>ROC</th></tr></thead>
+      <tbody>
+        <tr><td>Linearity</td><td>$ax[n]+by[n]$</td><td>$aX(z)+bY(z)$</td><td>$\supseteq R_x\cap R_y$</td></tr>
+        <tr><td>Time Shift</td><td>$x[n-n_0]$</td><td>$z^{-n_0}X(z)$</td><td>$R_x$ (exc. $z=0$ or $\infty$)</td></tr>
+        <tr><td>$z$-Scaling</td><td>$z_0^n\,x[n]$</td><td>$X(z/z_0)$</td><td>$|z_0|R_x$</td></tr>
+        <tr><td>Time Reversal</td><td>$x[-n]$</td><td>$X(1/z)$</td><td>$1/R_x$</td></tr>
+        <tr><td>Conjugation</td><td>$x^*[n]$</td><td>$X^*(z^*)$</td><td>$R_x$</td></tr>
+        <tr><td>Differentiation</td><td>$n\,x[n]$</td><td>$-z\dfrac{dX(z)}{dz}$</td><td>$R_x$</td></tr>
+        <tr><td>Convolution</td><td>$x[n]*y[n]$</td><td>$X(z)\cdot Y(z)$</td><td>$\supseteq R_x\cap R_y$</td></tr>
+        <tr><td>Correlation</td><td>$r_{xy}[n]=x[n]*y^*[-n]$</td><td>$X(z)Y^*(1/z^*)$</td><td></td></tr>
+        <tr><td>First Difference</td><td>$x[n]-x[n-1]$</td><td>$(1-z^{-1})X(z)$</td><td>$\supseteq R_x\cap|z|&gt;0$</td></tr>
+        <tr><td>Accumulation</td><td>$\sum_{k=-\infty}^{n}x[k]$</td><td>$\dfrac{X(z)}{1-z^{-1}}$</td><td>$\supseteq R_x\cap|z|&gt;1$</td></tr>
+        <tr><td>Initial Value</td><td>$x[0]$</td><td>$\lim_{z\to\infty}X(z)$ (causal)</td><td></td></tr>
+        <tr><td>Parseval's</td><td colspan="3">$\displaystyle\sum_{n=-\infty}^{\infty}x[n]y^*[n]=\frac{1}{2\pi j}\oint_C X(z)Y^*(1/z^*)\,z^{-1}\,dz$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Z-Transform Pairs</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>$x[n]$</th><th>$X(z)$</th><th>ROC</th></tr></thead>
+      <tbody>
+        <tr><td>$\delta[n]$</td><td>$1$</td><td>All $z$</td></tr>
+        <tr><td>$\delta[n-n_0]$</td><td>$z^{-n_0}$</td><td>All $z$ (exc. $0$ if $n_0&gt;0$, $\infty$ if $n_0&lt;0$)</td></tr>
+        <tr><td>$u[n]$</td><td>$\dfrac{1}{1-z^{-1}}=\dfrac{z}{z-1}$</td><td>$|z|&gt;1$</td></tr>
+        <tr><td>$-u[-n-1]$</td><td>$\dfrac{1}{1-z^{-1}}$</td><td>$|z|&lt;1$</td></tr>
+        <tr><td>$a^n u[n]$</td><td>$\dfrac{1}{1-az^{-1}}=\dfrac{z}{z-a}$</td><td>$|z|&gt;|a|$</td></tr>
+        <tr><td>$-a^n u[-n-1]$</td><td>$\dfrac{1}{1-az^{-1}}$</td><td>$|z|&lt;|a|$</td></tr>
+        <tr><td>$n\,a^n u[n]$</td><td>$\dfrac{az^{-1}}{(1-az^{-1})^2}=\dfrac{az}{(z-a)^2}$</td><td>$|z|&gt;|a|$</td></tr>
+        <tr><td>$n^2 a^n u[n]$</td><td>$\dfrac{az^{-1}(1+az^{-1})}{(1-az^{-1})^3}$</td><td>$|z|&gt;|a|$</td></tr>
+        <tr><td>$\cos(\omega_0 n)u[n]$</td><td>$\dfrac{1-z^{-1}\cos\omega_0}{1-2z^{-1}\cos\omega_0+z^{-2}}$</td><td>$|z|&gt;1$</td></tr>
+        <tr><td>$\sin(\omega_0 n)u[n]$</td><td>$\dfrac{z^{-1}\sin\omega_0}{1-2z^{-1}\cos\omega_0+z^{-2}}$</td><td>$|z|&gt;1$</td></tr>
+        <tr><td>$r^n\cos(\omega_0 n)u[n]$</td><td>$\dfrac{1-rz^{-1}\cos\omega_0}{1-2rz^{-1}\cos\omega_0+r^2z^{-2}}$</td><td>$|z|&gt;r$</td></tr>
+        <tr><td>$r^n\sin(\omega_0 n)u[n]$</td><td>$\dfrac{rz^{-1}\sin\omega_0}{1-2rz^{-1}\cos\omega_0+r^2z^{-2}}$</td><td>$|z|&gt;r$</td></tr>
+        <tr><td>$\binom{n+r-1}{r-1}a^n u[n]$</td><td>$\dfrac{1}{(1-az^{-1})^r}$</td><td>$|z|&gt;|a|$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Inverse Z-Transform Methods</h3>
+  <h4>1. Partial Fraction Expansion</h4>
+  <div class="formula">
+    $$X(z) = \frac{N(z)}{D(z)} = \sum_k \frac{A_k}{1-p_k z^{-1}}\quad\text{(simple poles)}$$
+    $$A_k = (1-p_k z^{-1})X(z)\big|_{z=p_k}$$
+    \text{If ROC: }|z|>|p_k|\Rightarrow p_k^n u[n];\quad |z|<|p_k|\Rightarrow -p_k^n u[-n-1]
+  </div>
+  <h4>2. Power Series (Long Division)</h4>
+  <div class="formula">
+    $$X(z)=\sum_{n}x[n]z^{-n}\quad\Rightarrow\quad\text{coefficients of }z^{-n}\text{ give }x[n]$$
+    \text{Divide numerator by denominator in powers of }z^{-1}
+  </div>
+  <h4>3. Contour Integration</h4>
+  <div class="formula">
+    $$x[n]=\sum_k\text{Res}\left[X(z)z^{n-1},\,z=p_k\right]$$
+    \text{Simple pole: }\text{Res}[X(z)z^{n-1},p_k]=(z-p_k)X(z)z^{n-1}\big|_{z=p_k}
+  </div>
+
+  <h3>Transfer Function &amp; Stability</h3>
+  <div class="formula">
+    $$H(z)=\frac{Y(z)}{X(z)}=\frac{\sum_{m=0}^{M}b_m\,z^{-m}}{\sum_{k=0}^{N}a_k\,z^{-k}}$$
+  </div>
+  <div class="card accent-blue">
+    <ul>
+      <li><strong>Causal &amp; Stable:</strong> All poles inside unit circle $|p_k|&lt;1$ AND ROC $|z|&gt;r_{max}$ includes unit circle</li>
+      <li><strong>DTFT ↔ Z-Transform:</strong> $H(e^{j\omega})=H(z)\big|_{z=e^{j\omega}}$</li>
+      <li>Zeros on unit circle → frequency nulls; poles near unit circle → resonances</li>
+    </ul>
+  </div>
+
+  <h3>Direct Form Implementations</h3>
+  <div class="card accent-teal">
+    <p>For $H(z)=\dfrac{\sum_m b_m z^{-m}}{\sum_k a_k z^{-k}}$:</p>
+    <p><strong>Direct Form I:</strong> Two separate delay chains (numerator then denominator). Uses $M+N$ delay elements.</p>
+    <p><strong>Direct Form II (Canonical):</strong> Combine the two into shared delay chain. Uses only $\max(M,N)$ delay elements. More efficient.</p>
+    <p><strong>Direct Form II Transposed:</strong> Reverse signal flow of Direct Form II.</p>
+  </div>
+
+  <h3>Pole-Zero Analysis</h3>
+  <div class="formula">
+    $$H(z)=\frac{b_0}{a_0}\cdot\frac{\prod_{m=1}^{M}(1-c_m z^{-1})}{\prod_{k=1}^{N}(1-d_k z^{-1})}$$
+    $$|H(e^{j\omega})|=\frac{|b_0/a_0|\cdot\prod_m|e^{j\omega}-c_m|}{\prod_k|e^{j\omega}-d_k|}\quad\text{(geometric interpretation)}$$
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 11: ANALOG FILTERS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s11">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <h2>Introduction to Analog Filters</h2>
+  </div>
+
+  <h3>Filter Specifications</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Parameter</th><th>Symbol</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td>Passband edge</td><td>$\Omega_p$</td><td>Frequency up to which gain ≥ $1-\delta_p$</td></tr>
+        <tr><td>Stopband edge</td><td>$\Omega_s$</td><td>Frequency from which gain ≤ $\delta_s$</td></tr>
+        <tr><td>Passband ripple</td><td>$R_p$ (dB)</td><td>$R_p = -20\log_{10}(1-\delta_p)$</td></tr>
+        <tr><td>Stopband attenuation</td><td>$A_s$ (dB)</td><td>$A_s = -20\log_{10}(\delta_s)$</td></tr>
+        <tr><td>Transition band</td><td>$\Omega_s-\Omega_p$</td><td>Region between pass and stop bands</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Butterworth Filter</h3>
+  <div class="formula">
+    $$|H_N(j\Omega)|^2=\frac{1}{1+\left(\Omega/\Omega_c\right)^{2N}}$$
+    $$N = \frac{\log\sqrt{(10^{0.1A_s}-1)/(10^{0.1R_p}-1)}}{\log(\Omega_s/\Omega_p)}$$
+    $$\text{Poles: }p_k = \Omega_c\,e^{j\pi(2k+N-1)/(2N)},\quad k=1,\ldots,N$$
+  </div>
+  <div class="card accent-gold">
+    <ul>
+      <li>Maximally flat magnitude (all derivatives of $|H|^2$ zero at $\Omega=0$)</li>
+      <li>Monotonically decreasing magnitude</li>
+      <li>$-3\text{ dB}$ at $\Omega=\Omega_c$</li>
+      <li>Roll-off: $-20N$ dB/decade or $-6N$ dB/octave</li>
+    </ul>
+  </div>
+
+  <h3>Chebyshev Filters</h3>
+  <div class="formula">
+    $$|H_N(j\Omega)|^2=\frac{1}{1+\epsilon^2 T_N^2(\Omega/\Omega_p)}\quad\text{(Type I)}$$
+    $$T_N(x)=\begin{cases}\cos(N\cos^{-1}x),&|x|\leq 1\\\cosh(N\cosh^{-1}x),&|x|>1\end{cases}$$
+  </div>
+  <div class="card accent-purple">
+    <ul>
+      <li><strong>Type I:</strong> Equal ripple in passband, monotonic in stopband</li>
+      <li><strong>Type II (Inverse):</strong> Monotonic in passband, equal ripple in stopband</li>
+      <li>Steeper roll-off than Butterworth for same order</li>
+      <li>$\epsilon = \sqrt{10^{0.1R_p}-1}$</li>
+    </ul>
+  </div>
+
+  <h3>Analog Filter Transformations</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Transformation</th><th>Substitution in $H(s)$</th></tr></thead>
+      <tbody>
+        <tr><td>LP → LP (freq scaling)</td><td>$s \to s/\Omega_c$</td></tr>
+        <tr><td>LP → HP</td><td>$s \to \Omega_c/s$</td></tr>
+        <tr><td>LP → BP (center $\omega_0$, BW $B$)</td><td>$s \to (s^2+\omega_0^2)/(Bs)$</td></tr>
+        <tr><td>LP → BS (bandstop)</td><td>$s \to Bs/(s^2+\omega_0^2)$</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- QUICK REFERENCE COMPARISON TABLE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="s12">
+  <div class="section-header">
+    <span class="section-num">★</span>
+    <h2>Transform Quick Reference Comparison</h2>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>CTFT</th>
+          <th>Laplace</th>
+          <th>DTFT</th>
+          <th>Z-Transform</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Variable</td><td>$\omega$ (real)</td><td>$s=\sigma+j\omega$</td><td>$\omega$ (real, $2\pi$-periodic)</td><td>$z=re^{j\omega}$</td></tr>
+        <tr><td>Signal type</td><td>CT, aperiodic</td><td>CT, general</td><td>DT, aperiodic</td><td>DT, general</td></tr>
+        <tr><td>Analysis domain</td><td>$j\omega$-axis</td><td>$s$-plane</td><td>Unit circle</td><td>$z$-plane</td></tr>
+        <tr><td>Relationship</td><td>$X(j\omega)=X(s)|_{s=j\omega}$</td><td>$X(s)=\int x e^{-st}dt$</td><td>$X(e^{j\omega})=X(z)|_{z=e^{j\omega}}$</td><td>$X(z)=\sum x[n]z^{-n}$</td></tr>
+        <tr><td>Convolution</td><td>Multiply spectra</td><td>Multiply $X(s)Y(s)$</td><td>Multiply spectra</td><td>Multiply $X(z)Y(z)$</td></tr>
+        <tr><td>Time shift</td><td>$e^{-j\omega t_0}X(j\omega)$</td><td>$e^{-st_0}X(s)$</td><td>$e^{-j\omega n_0}X(e^{j\omega})$</td><td>$z^{-n_0}X(z)$</td></tr>
+        <tr><td>Differentiation/Difference</td><td>$j\omega X(j\omega)$</td><td>$sX(s)-x(0^-)$</td><td>$(1-e^{-j\omega})X$</td><td>$(1-z^{-1})X(z)$</td></tr>
+        <tr><td>Stability (LTI)</td><td>$\int|h(t)|dt&lt;\infty$</td><td>Poles in LHP</td><td>$\sum|h[n]|&lt;\infty$</td><td>Poles inside unit circle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Duality Relations</h3>
+  <div class="card accent-teal">
+    <ul>
+      <li><strong>CT:</strong> CTFS coefficients $\xrightarrow{\text{periodic extension}}$ CTFT samples; CTFT$\{$periodic signal$\}$ = impulse train</li>
+      <li><strong>CTFS ↔ DTFT:</strong> FS coefficients $a_k$ are samples of $X(j\omega)/T$ at $\omega=k\omega_0$</li>
+      <li><strong>Sampling ↔ Periodicity:</strong> Sampling in time $\Leftrightarrow$ periodicity in frequency; sampling in frequency $\Leftrightarrow$ periodicity in time (DFT)</li>
+      <li><strong>DTFT ↔ DTFS:</strong> $X[k]=X(e^{j\omega})|_{\omega=2\pi k/N}$ (DFT as samples of DTFT)</li>
+    </ul>
+  </div>
+
+  <h3>Critical Formulas for Exams</h3>
+  <div class="formula">
+    \textbf{Geometric series: }\sum_{n=0}^{N-1}r^n=\frac{1-r^N}{1-r},\quad \sum_{n=0}^{\infty}r^n=\frac{1}{1-r}\;(|r|&lt;1)
+  </div>
+  <div class="formula">
+    \textbf{Parseval's (all transforms): }\text{Energy in time} = \text{Energy in frequency (scaled)}
+  </div>
+  <div class="formula">
+    \textbf{Convolution-Multiplication duality:}\\
+    x*y \xleftrightarrow{\mathcal{F}} X\cdot Y\qquad x\cdot y \xleftrightarrow{\mathcal{F}} \frac{1}{2\pi}X*Y
+  </div>
+</div>
+
+</main>
+
+<footer style="text-align:center; padding:2rem; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;">
+  ECE/EEE/INSTR F243 · Signals &amp; Systems · BITS Pilani 2025-26 · Notes compiled from T1 (Lathi), T2 (Nagrath &amp; Sharan), R1 (Oppenheim &amp; Willsky)
+</footer>
+
+</body>
+</html>

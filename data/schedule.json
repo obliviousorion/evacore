@@ -141,7 +141,7 @@
       "type": "Comprehensive Exam",
       "course": "SSP",
       "subjectId": "ssp",
-      "details": "Comprehensive Examination",
+      "details": "CB",
       "time": "14:00"
     },
     {
@@ -170,6 +170,15 @@
       "subjectId": "edsl",
       "details": "Presentation",
       "time": "18:00"
+    },
+    {
+      "id": "e177747081921067dl",
+      "date": "2026-05-02",
+      "type": "Assignment",
+      "course": "AMP",
+      "subjectId": "amp",
+      "details": "kar fata fat",
+      "time": ""
     }
   ]
 }
